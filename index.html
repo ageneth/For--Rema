@@ -7,7 +7,7 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background: linear-gradient(to right, #ffdde1, #ee9ca7);
     }
 
@@ -25,11 +25,7 @@
 
     h1 {
       color: #ff4d6d;
-    }
-
-    p {
-      line-height: 1.6;
-      display: none; /* hidden until correct date */
+      font-size: 28px;
     }
 
     input {
@@ -39,6 +35,7 @@
       border: 1px solid #ccc;
       text-align: center;
       margin-bottom: 10px;
+      width: 70%;
     }
 
     button {
@@ -55,7 +52,15 @@
       background: #e60039;
     }
 
-    /* Floating hearts */
+    #longMessage {
+      margin-top: 20px;
+      text-align: left;
+      line-height: 1.6;
+      white-space: pre-line;
+      display: none;
+      font-size: 16px;
+    }
+
     .heart {
       position: absolute;
       width: 20px;
@@ -84,69 +89,72 @@
     }
   </style>
 </head>
-
 <body>
 
 <div class="card">
-  <h1>Hi Love 💖</h1>
-  <p>Please type our monthsary date to unlock the message!</p>
+  <h1>💖 Hey love, ready for a surprise? 💖</h1>
+  <p>Type our special monthsary date to unlock your message!</p>
   <input type="text" id="dateInput" placeholder="Type the date (e.g., April 10)">
-  <br>
+  <br><br>
   <button onclick="checkDate()">Submit</button>
 
   <div id="musicBox"></div>
 
-  <p id="longMessage">
-    Hi love,<br><br>
-    Happy monthsary sa atin 🥺💖  
-    Gusto ko lang sabihin sayo kung gaano kita kamahal.  
-    Hindi man ako perfect, thank you kasi tinatanggap mo pa rin ako. 💕<br><br>
-
-    Thank you for staying, for understanding me,  
-    and for loving me kahit minsan magulo ako.  
-    You make me feel safe and happy. 🥺<br><br>
-
-    Grabe, sobrang na-appreciate kita sa lahat ng ginagawa mo.  
-    Ikaw yung dahilan kung bakit mas gumagaan yung araw ko. 💖<br><br>
-
-    Pipiliin pa rin kita araw-araw, kahit anong mangyari.  
-    I love you so much, always and forever. ❤️<br><br>
-
-    — Yours always 💌
-  </p>
+  <div id="longMessage"></div>
 </div>
 
 <script>
-// Check the date entered
+const fullMessage = `My dearest Rema,
+
+Happy monthsary, my love 😘💖. Every day with you feels brighter and sweeter. I love the way you laugh, the way you care, and how you make my heart feel safe. You’re my favorite person, my best friend, and my home all at once.
+
+Thank you for loving me just as I am, for being patient with my quirks, and for holding my heart so gently. I promise to cherish you, support you, and make you feel as loved as you make me feel every single day.
+
+Here’s to many more months and years together, my bibi 💕. I love you endlessly.
+
+— Yours, forever and always 💌`;
+
+function typeMessage(message, elementId, delay = 40) {
+  const element = document.getElementById(elementId);
+  let index = 0;
+  element.style.display = 'block';
+  element.textContent = '';
+
+  const typing = setInterval(() => {
+    element.textContent += message[index];
+    index++;
+    if (index >= message.length) clearInterval(typing);
+  }, delay);
+}
+
 function checkDate() {
   const input = document.getElementById("dateInput").value.trim().toLowerCase();
   if (input === "april 10") {
-    alert("Happy monthsary, bibi ko! 😚");
+    alert("Yay! Happy monthsary, my love 😚💖 You’ve unlocked your special surprise!");
 
-    // Show the long message
-    document.getElementById("longMessage").style.display = "block";
-
-    // Play the music
+    // Play music using iframe
     const musicBox = document.getElementById("musicBox");
     musicBox.innerHTML = `<iframe width="0" height="0"
       src="https://www.youtube.com/embed/TpOCHCNNtRU?autoplay=1&loop=1&playlist=TpOCHCNNtRU&controls=0"
-      frameborder="0"
-      allow="autoplay; encrypted-media" allowfullscreen>
+      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>`;
+
+    // Type out the long message
+    typeMessage(fullMessage, 'longMessage', 30);
   } else {
-    alert("Hmm... try again! 😅");
+    alert("Hmm… that’s not quite right 😅. Try again!");
   }
 }
 
 // Floating hearts animation
 setInterval(() => {
-  let heart = document.createElement("div");
+  const heart = document.createElement("div");
   heart.className = "heart";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.animationDuration = (3 + Math.random() * 3) + "s";
   document.body.appendChild(heart);
 
-  setTimeout(() => { heart.remove(); }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }, 300);
 </script>
 
