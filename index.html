@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>For Rema ❤️</title>
-
   <style>
     body {
       margin: 0;
@@ -30,6 +29,16 @@
 
     p {
       line-height: 1.6;
+      display: none; /* hidden until correct date */
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      margin-bottom: 10px;
     }
 
     button {
@@ -44,11 +53,6 @@
 
     button:hover {
       background: #e60039;
-    }
-
-    iframe {
-      margin-top: 15px;
-      border-radius: 10px;
     }
 
     /* Floating hearts */
@@ -71,25 +75,12 @@
       border-radius: 50%;
     }
 
-    .heart:before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart:after {
-      left: -10px;
-      top: 0;
-    }
+    .heart:before { top: -10px; left: 0; }
+    .heart:after { left: -10px; top: 0; }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) rotate(45deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
     }
   </style>
 </head>
@@ -97,11 +88,16 @@
 <body>
 
 <div class="card">
-  <h1>Happy Monthsary, Rema Azucena 💖</h1>
+  <h1>Hi Love 💖</h1>
+  <p>Please type our monthsary date to unlock the message!</p>
+  <input type="text" id="dateInput" placeholder="Type the date (e.g., April 10)">
+  <br>
+  <button onclick="checkDate()">Submit</button>
 
-  <p>
+  <div id="musicBox"></div>
+
+  <p id="longMessage">
     Hi love,<br><br>
-
     Happy monthsary sa atin 🥺💖  
     Gusto ko lang sabihin sayo kung gaano kita kamahal.  
     Hindi man ako perfect, thank you kasi tinatanggap mo pa rin ako. 💕<br><br>
@@ -118,23 +114,31 @@
 
     — Yours always 💌
   </p>
-
-  <button onclick="showMusic()">Play Our Song 🎵</button>
-
-  <div id="musicBox" style="display:none;">
-    <iframe width="300" height="170"
-      src="https://www.youtube.com/embed?listType=search&list=Kalapastangan%20Hev%20Abi"
-      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-    </iframe>
-  </div>
 </div>
 
 <script>
-function showMusic() {
-  document.getElementById("musicBox").style.display = "block";
+// Check the date entered
+function checkDate() {
+  const input = document.getElementById("dateInput").value.trim().toLowerCase();
+  if (input === "april 10") {
+    alert("Happy monthsary, bibi ko! 😚");
+
+    // Show the long message
+    document.getElementById("longMessage").style.display = "block";
+
+    // Play the music
+    const musicBox = document.getElementById("musicBox");
+    musicBox.innerHTML = `<iframe width="0" height="0"
+      src="https://www.youtube.com/embed/TpOCHCNNtRU?autoplay=1&loop=1&playlist=TpOCHCNNtRU&controls=0"
+      frameborder="0"
+      allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>`;
+  } else {
+    alert("Hmm... try again! 😅");
+  }
 }
 
-/* Create floating hearts */
+// Floating hearts animation
 setInterval(() => {
   let heart = document.createElement("div");
   heart.className = "heart";
@@ -142,9 +146,7 @@ setInterval(() => {
   heart.style.animationDuration = (3 + Math.random() * 3) + "s";
   document.body.appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => { heart.remove(); }, 6000);
 }, 300);
 </script>
 
