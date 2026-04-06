@@ -6,83 +6,128 @@
     body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       font-family: 'Arial', sans-serif;
       background: linear-gradient(to right, #ffdde1, #ee9ca7);
+      overflow-x: hidden;
     }
 
     .card {
       position: relative;
       z-index: 2;
       background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      max-width: 500px;
-      margin: 80px auto;
+      padding: 40px 30px 60px 30px;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      max-width: 650px;
+      margin: 60px auto;
       text-align: center;
+      transition: all 0.3s ease;
     }
 
     h1 {
       color: #ff4d6d;
-      font-size: 28px;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
     }
 
     input {
-      padding: 10px;
+      padding: 14px;
       font-size: 16px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #ccc;
       text-align: center;
-      margin-bottom: 10px;
-      width: 70%;
+      width: 75%;
+      margin-bottom: 15px;
     }
 
     button {
       background: #ff4d6d;
       border: none;
-      padding: 12px 20px;
+      padding: 14px 28px;
       color: white;
       font-size: 16px;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       margin: 5px;
+      transition: all 0.2s;
     }
 
     button:hover {
       background: #e60039;
+      transform: scale(1.05);
     }
 
-    #shortMessage, #longMessage, #questionBox {
+    #shortMessage {
       margin-top: 20px;
-      text-align: left;
-      line-height: 1.6;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff4d6d;
+    }
+
+    #longMessage {
+      margin-top: 25px;
+      font-size: 18px;
+      line-height: 1.8;
       white-space: pre-line;
       display: none;
-      font-size: 16px;
+      text-align: left;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 25px;
+      border-radius: 20px;
+      background: #fff0f5;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: all 0.5s ease;
     }
 
-    .heart {
+    #questionBox {
+      margin-top: 20px;
+      display: none;
+    }
+
+    img {
+      width: 250px;
+      border-radius: 25px;
+      margin-top: 25px;
+      display: none;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      transition: all 0.5s ease;
+    }
+
+    .heart, .flower {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
+      width: 22px;
+      height: 22px;
       transform: rotate(45deg);
       animation: float 6s infinite;
     }
 
-    .heart:before,
-    .heart:after {
+    .heart {
+      background: red;
+    }
+
+    .heart:before, .heart:after {
       content: "";
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       background: red;
       border-radius: 50%;
     }
 
-    .heart:before { top: -10px; left: 0; }
-    .heart:after { left: -10px; top: 0; }
+    .heart:before { top: -11px; left: 0; }
+    .heart:after { left: -11px; top: 0; }
+
+    .flower {
+      background: pink;
+      border-radius: 50%;
+      box-shadow: 0 0 4px #ffb6c1;
+    }
 
     @keyframes float {
       0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
@@ -96,12 +141,13 @@
   <h1>💖 Hey love, ready for a surprise? 💖</h1>
   <p>Type our special date to unlock your message!</p>
   <input type="text" id="dateInput" placeholder="Type the date (e.g., September 10)">
-  <br><br>
-  <button onclick="checkDate()">Submit</button>
+  <br>
+  <button id="submitBtn" onclick="checkDate()">Submit</button>
 
   <div id="shortMessage"></div>
   <div id="questionBox"></div>
   <div id="longMessage"></div>
+  <img id="cuteImage" src="YOUR_FLOWER_IMAGE_URL_HERE" alt="Surprise Image">
   <div id="musicBox"></div>
 </div>
 
@@ -121,31 +167,45 @@ function typeMessage(message, elementId, delay = 40) {
   let index = 0;
   element.style.display = 'block';
   element.textContent = '';
-
   const typing = setInterval(() => {
     element.textContent += message[index];
     index++;
-    if (index >= message.length) clearInterval(typing);
+    if (index >= message.length) {
+      clearInterval(typing);
+      startFlowerConfetti(); // Trigger confetti after typing finishes
+    }
   }, delay);
 }
 
 function checkDate() {
   const input = document.getElementById("dateInput").value.trim().toLowerCase();
   if (input === "september 10" || input === "september 10, 2025") {
+    document.getElementById("submitBtn").style.display = "none";
+    document.getElementById("dateInput").style.display = "none";
+
     const shortMsg = document.getElementById("shortMessage");
     shortMsg.textContent = "Happy Monthsary, bibi ko! 😚";
     shortMsg.style.display = 'block';
 
     setTimeout(() => {
       const questionBox = document.getElementById("questionBox");
-      questionBox.innerHTML = `<p>Do you want to read my full love message, bibi? 💕</p>
-        <button onclick="showLongMessage(true)">Yes 💕</button>
-        <button onclick="showLongMessage(false)">No 😢</button>`;
       questionBox.style.display = 'block';
-    }, 800);
+      questionBox.innerHTML = `
+        <p>Do you want to read my full love message, bibi? 💕</p>
+        <button id="yesBtn" onclick="showLongMessage(true)">Yes 💕</button>
+        <button id="noBtn" onclick="trickNo()">No 😢</button>
+      `;
+    }, 1000);
   } else {
     alert("Hmm… that’s not quite right 😅. Try again!");
   }
+}
+
+function trickNo() {
+  const noBtn = document.getElementById("noBtn");
+  noBtn.textContent = "Yes 💕";
+  noBtn.onclick = () => showLongMessage(true);
+  alert("Haha, you can't say no, bibi 😏💖");
 }
 
 function showLongMessage(answer) {
@@ -154,15 +214,13 @@ function showLongMessage(answer) {
 
   if(answer) {
     typeMessage(fullMessage, 'longMessage', 30);
+    document.getElementById("cuteImage").style.display = "block";
 
-    // Play TikTok music
     const musicBox = document.getElementById("musicBox");
     musicBox.innerHTML = `<iframe width="0" height="0"
       src="https://www.tiktok.com/embed/TpOCHCNNtRU?autoplay=1"
       frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
     </iframe>`;
-  } else {
-    alert("Okay bibi 😢 maybe next time!");
   }
 }
 
@@ -173,9 +231,22 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.animationDuration = (3 + Math.random() * 3) + "s";
   document.body.appendChild(heart);
-
   setTimeout(() => heart.remove(), 6000);
 }, 300);
+
+// Floating flowers confetti after message
+function startFlowerConfetti() {
+  for(let i=0; i<50; i++) {
+    const flower = document.createElement("div");
+    flower.className = "flower";
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.background = `hsl(${Math.random()*360}, 70%, 75%)`;
+    flower.style.width = flower.style.height = (10 + Math.random()*15) + "px";
+    flower.style.animationDuration = (4 + Math.random()*4) + "s";
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 8000);
+  }
+}
 </script>
 
 </body>
