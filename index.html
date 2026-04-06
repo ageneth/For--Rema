@@ -46,13 +46,14 @@
       font-size: 16px;
       border-radius: 10px;
       cursor: pointer;
+      margin: 5px;
     }
 
     button:hover {
       background: #e60039;
     }
 
-    #longMessage {
+    #shortMessage, #longMessage, #questionBox {
       margin-top: 20px;
       text-align: left;
       line-height: 1.6;
@@ -93,14 +94,15 @@
 
 <div class="card">
   <h1>💖 Hey love, ready for a surprise? 💖</h1>
-  <p>Type our special monthsary date to unlock your message!</p>
-  <input type="text" id="dateInput" placeholder="Type the date (e.g., April 10)">
+  <p>Type our special date to unlock your message!</p>
+  <input type="text" id="dateInput" placeholder="Type the date (e.g., September 10)">
   <br><br>
   <button onclick="checkDate()">Submit</button>
 
-  <div id="musicBox"></div>
-
+  <div id="shortMessage"></div>
+  <div id="questionBox"></div>
   <div id="longMessage"></div>
+  <div id="musicBox"></div>
 </div>
 
 <script>
@@ -129,20 +131,38 @@ function typeMessage(message, elementId, delay = 40) {
 
 function checkDate() {
   const input = document.getElementById("dateInput").value.trim().toLowerCase();
-  if (input === "april 10") {
-    alert("Yay! Happy monthsary, my love 😚💖 You’ve unlocked your special surprise!");
+  if (input === "september 10" || input === "september 10, 2025") {
+    const shortMsg = document.getElementById("shortMessage");
+    shortMsg.textContent = "Happy Monthsary, bibi ko! 😚";
+    shortMsg.style.display = 'block';
 
-    // Play music using iframe
-    const musicBox = document.getElementById("musicBox");
-    musicBox.innerHTML = `<iframe width="0" height="0"
-      src="https://www.youtube.com/embed/TpOCHCNNtRU?autoplay=1&loop=1&playlist=TpOCHCNNtRU&controls=0"
-      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-    </iframe>`;
-
-    // Type out the long message
-    typeMessage(fullMessage, 'longMessage', 30);
+    setTimeout(() => {
+      const questionBox = document.getElementById("questionBox");
+      questionBox.innerHTML = `<p>Do you want to read my full love message, bibi? 💕</p>
+        <button onclick="showLongMessage(true)">Yes 💕</button>
+        <button onclick="showLongMessage(false)">No 😢</button>`;
+      questionBox.style.display = 'block';
+    }, 800);
   } else {
     alert("Hmm… that’s not quite right 😅. Try again!");
+  }
+}
+
+function showLongMessage(answer) {
+  const questionBox = document.getElementById("questionBox");
+  questionBox.style.display = 'none';
+
+  if(answer) {
+    typeMessage(fullMessage, 'longMessage', 30);
+
+    // Play TikTok music
+    const musicBox = document.getElementById("musicBox");
+    musicBox.innerHTML = `<iframe width="0" height="0"
+      src="https://www.tiktok.com/embed/TpOCHCNNtRU?autoplay=1"
+      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>`;
+  } else {
+    alert("Okay bibi 😢 maybe next time!");
   }
 }
 
