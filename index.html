@@ -2,136 +2,121 @@
 <html>
 <head>
   <title>For Rema ❤️</title>
+
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: Arial;
       background: linear-gradient(to right, #ffdde1, #ee9ca7);
       overflow-x: hidden;
     }
 
     .card {
-      position: relative;
-      z-index: 2;
       background: white;
-      padding: 40px 30px 60px 30px;
+      padding: 40px;
       border-radius: 25px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      max-width: 650px;
+      max-width: 700px;
       margin: 60px auto;
       text-align: center;
-      transition: all 0.3s ease;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: 1s;
     }
 
     h1 {
       color: #ff4d6d;
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
+      font-size: 34px;
     }
 
     input {
       padding: 14px;
-      font-size: 16px;
-      border-radius: 12px;
+      width: 70%;
+      border-radius: 10px;
       border: 1px solid #ccc;
-      text-align: center;
-      width: 75%;
-      margin-bottom: 15px;
+      margin-top: 10px;
     }
 
     button {
-      background: #ff4d6d;
+      margin-top: 10px;
+      padding: 12px 25px;
       border: none;
-      padding: 14px 28px;
+      background: #ff4d6d;
       color: white;
-      font-size: 16px;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      margin: 5px;
-      transition: all 0.2s;
     }
 
     button:hover {
       background: #e60039;
-      transform: scale(1.05);
-    }
-
-    #shortMessage, #longMessage, #questionBox, #finalMessage, #cuteImage {
-      display: none;
     }
 
     #shortMessage {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 34px;
       color: #ff4d6d;
+      margin-top: 30px;
+      display: none;
+      opacity: 0;
+      transform: scale(0.8);
     }
 
     #longMessage {
-      margin-top: 25px;
-      font-size: 18px;
-      line-height: 1.8;
-      white-space: pre-line;
+      display: none;
+      margin-top: 20px;
       text-align: left;
-      max-height: 400px;
-      overflow-y: auto;
+      line-height: 1.8;
+      background: rgba(255,255,255,0.95);
       padding: 25px;
       border-radius: 20px;
-      background: #fff0f5;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: all 0.5s ease;
-    }
-
-    #cuteImage {
-      width: 250px;
-      border-radius: 25px;
-      margin-top: 25px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-      transition: all 0.5s ease;
+      backdrop-filter: blur(6px);
     }
 
     #finalMessage {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
+      display: none;
+      font-size: 30px;
       color: #ff4d6d;
+      margin-top: 30px;
+      opacity: 0;
+      transform: translateY(20px);
     }
 
-    .heart, .flower {
-      position: absolute;
-      width: 22px;
-      height: 22px;
-      transform: rotate(45deg);
-      animation: float 6s infinite;
+    video {
+      display: none;
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    #replayBtn {
+      display: none;
+      margin-top: 20px;
+    }
+
+    /* CINEMATIC DARK MODE */
+    .cinema {
+      background: black !important;
+      color: white;
     }
 
     .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
       background: red;
+      transform: rotate(45deg);
+      animation: float 6s infinite;
     }
 
     .heart:before, .heart:after {
       content: "";
       position: absolute;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       background: red;
       border-radius: 50%;
     }
 
-    .heart:before { top: -11px; left: 0; }
-    .heart:after { left: -11px; top: 0; }
-
-    .flower {
-      background: pink;
-      border-radius: 50%;
-      box-shadow: 0 0 4px #ffb6c1;
-    }
+    .heart:before { top: -10px; }
+    .heart:after { left: -10px; }
 
     @keyframes float {
       0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
@@ -139,140 +124,150 @@
     }
   </style>
 </head>
+
 <body>
 
-<div class="card">
+<div class="card" id="card">
+
   <h1 id="mainHeading">💖 Mahal😾, ready for a surprise?😸</h1>
-  <input type="text" id="dateInput" placeholder="Type the date (e.g., September 10)">
+
+  <input id="dateInput" placeholder="Type the date (September 10)">
   <br>
   <button id="submitBtn" onclick="checkDate()">Submit</button>
 
   <div id="shortMessage"></div>
   <div id="questionBox"></div>
+
+  <video id="loveVideo" loop>
+    <source src="rema.mp4" type="video/mp4">
+  </video>
+
   <div id="longMessage"></div>
-  <img id="cuteImage" src="rema.jpg" alt="Surprise Image">
   <div id="finalMessage"></div>
 
-  <audio id="bgMusic" loop>
-    <source src="rema.mp3" type="audio/mpeg">
-  </audio>
+  <button id="replayBtn" onclick="replayAll()">Replay 💖</button>
+
 </div>
 
 <script>
+
 const fullMessage = `My dearest Rema,
 
-Happy monthsary, mahal ko 😘💖. Every day with you feels brighter and sweeter. I love the way you laugh, the way you care, and how you make my heart feel safe. You’re my favorite person, my best friend, and my home all at once.
+(Replace this with your real message 💕)`;
 
-Thank you for loving me just as I am, for being patient with my quirks, and for holding my heart so gently. I promise to cherish you, support you, and make you feel as loved as you make me feel every single day.
+// floating hearts
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.style.left=Math.random()*100+"vw";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},300);
 
-Here’s to many more months and years together, my bibi 💕. I love you endlessly.
+// typing effect
+function typeMessage(text,id,speed=30,callback=null){
+  const el=document.getElementById(id);
+  el.innerHTML="";
+  el.style.display="block";
+  let i=0;
 
-— Yours, forever and always 💌`;
-
-function typeMessage(message, elementId, delay = 40, callback=null) {
-  const element = document.getElementById(elementId);
-  element.style.display = 'block';
-  element.textContent = '';
-  let index = 0;
-  const typing = setInterval(() => {
-    element.textContent += message[index];
-    index++;
-    if(index >= message.length) {
+  const typing=setInterval(()=>{
+    el.innerHTML+=text[i];
+    i++;
+    if(i>=text.length){
       clearInterval(typing);
       if(callback) callback();
     }
-  }, delay);
+  },speed);
 }
 
-function checkDate() {
-  const input = document.getElementById("dateInput").value.trim().toLowerCase();
-  if(input === "september 10" || input === "september 10, 2025") {
-    // Hide inputs and heading
-    document.getElementById("submitBtn").style.display = 'none';
-    document.getElementById("dateInput").style.display = 'none';
-    document.getElementById("mainHeading").style.display = 'none';
+// check date
+function checkDate(){
+  const input=document.getElementById("dateInput").value.toLowerCase().trim();
 
-    // Show short message only
-    const shortMsg = document.getElementById("shortMessage");
-    shortMsg.textContent = "Happy Monthsary, bibi ko! 😚";
-    showMessage('shortMessage');
+  if(input==="september 10"||input==="september 10, 2025"){
 
-    // Show question after delay
-    setTimeout(() => {
-      const questionBox = document.getElementById("questionBox");
-      questionBox.innerHTML = `
-        <p>Do you want to read my full love message, bibi? 💕</p>
-        <button onclick="showLongMessage(true)">Yes 💕</button>
+    document.getElementById("mainHeading").style.display="none";
+    document.getElementById("dateInput").style.display="none";
+    document.getElementById("submitBtn").style.display="none";
+
+    const msg=document.getElementById("shortMessage");
+    msg.innerText="Happy Monthsary, bibi ko 😚";
+    msg.style.display="block";
+
+    setTimeout(()=>{
+      msg.style.transition="1s";
+      msg.style.opacity=1;
+      msg.style.transform="scale(1.1)";
+    },100);
+
+    setTimeout(()=>{msg.style.transform="scale(1)";},1200);
+
+    setTimeout(()=>{
+      const q=document.getElementById("questionBox");
+      q.innerHTML=`
+        <p>Do you want to read my full love message? 💕</p>
+        <button onclick="startStory()">Yes 💕</button>
         <button onclick="trickNo()">No 😢</button>
       `;
-      showMessage('questionBox');
-    }, 1000);
+      q.style.display="block";
+    },2500);
+
   } else {
-    alert("Hmm… that’s not quite right 😅. Try again!");
+    alert("Wrong date 😅 try again!");
   }
 }
 
-// Trick No button to always say Yes
-function trickNo() {
-  const noBtn = document.querySelector("#questionBox button:last-child");
-  noBtn.textContent = "Yes 💕";
-  noBtn.onclick = () => showLongMessage(true);
-  alert("Haha, you can't say no, bibi 😏💖");
+// no button trick
+function trickNo(){
+  alert("Bawal mo i-no 😏💖");
+  startStory();
 }
 
-// Show long message
-function showLongMessage(answer) {
-  if(answer) {
-    showMessage('longMessage');
-    typeMessage(fullMessage, 'longMessage', 30, showFinalMessage);
-    document.getElementById("cuteImage").style.display = "block";
-    document.getElementById("bgMusic").play();
-  }
+// start story
+function startStory(){
+
+  document.getElementById("questionBox").style.display="none";
+  document.getElementById("shortMessage").style.display="none";
+
+  // cinematic mode
+  document.body.classList.add("cinema");
+  document.getElementById("card").style.background="transparent";
+
+  const video=document.getElementById("loveVideo");
+  video.style.display="block";
+  video.muted=false;
+  video.play();
+
+  setTimeout(()=>{
+    typeMessage(fullMessage,"longMessage",30,showEnding);
+  },2000);
 }
 
-// Show final magical message after reading
-function showFinalMessage() {
-  const finalMsg = document.getElementById("finalMessage");
-  finalMsg.textContent = "So proud of us bibi 🤘";
-  finalMsg.style.display = 'block';
-  startFlowerConfetti();
+// ending
+function showEnding(){
+
+  setTimeout(()=>{
+    const end=document.getElementById("finalMessage");
+    end.innerText="So proud of us, bibi 🤘";
+    end.style.display="block";
+
+    setTimeout(()=>{
+      end.style.transition="1.5s";
+      end.style.opacity=1;
+      end.style.transform="translateY(0)";
+    },100);
+
+    document.getElementById("replayBtn").style.display="inline-block";
+
+  },1500);
 }
 
-// Utility to show only one element at a time
-function showMessage(idToShow) {
-  const all = ['shortMessage','questionBox','longMessage','finalMessage'];
-  all.forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.style.display = 'none';
-  });
-  const elToShow = document.getElementById(idToShow);
-  if(elToShow) elToShow.style.display = 'block';
+// replay
+function replayAll(){
+  location.reload();
 }
 
-// Floating hearts animation
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.style.left = Math.random()*100 + "vw";
-  heart.style.animationDuration = (3 + Math.random()*3) + "s";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}, 300);
-
-// Flower confetti animation
-function startFlowerConfetti() {
-  for(let i=0;i<50;i++){
-    const flower = document.createElement("div");
-    flower.className = "flower";
-    flower.style.left = Math.random()*100 + "vw";
-    flower.style.background = `hsl(${Math.random()*360},70%,75%)`;
-    const size = 10+Math.random()*15;
-    flower.style.width = flower.style.height = size + "px";
-    flower.style.animationDuration = (4+Math.random()*4) + "s";
-    document.body.appendChild(flower);
-    setTimeout(()=>flower.remove(),8000);
-  }
-}
 </script>
 
 </body>
