@@ -67,6 +67,12 @@
       font-size: 24px;
       font-weight: bold;
       color: #ff4d6d;
+      display: none;
+    }
+
+    #questionBox {
+      margin-top: 20px;
+      display: none;
     }
 
     #longMessage {
@@ -85,12 +91,7 @@
       transition: all 0.5s ease;
     }
 
-    #questionBox {
-      margin-top: 20px;
-      display: none;
-    }
-
-    img {
+    #cuteImage {
       width: 250px;
       border-radius: 25px;
       margin-top: 25px;
@@ -138,21 +139,35 @@
 <body>
 
 <div class="card">
-  <h1>💖 Mahal😾, ready for a surprise?😸 Ayusin mo sagot mo dyan HAHAHAHAH💖</h1>
+  <h1>💖 Mahal😾, ready for a surprise?😸</h1>
   <p>Type our special date to unlock your message!</p>
+
+  <!-- Input & submit button -->
   <input type="text" id="dateInput" placeholder="Type the date (e.g., September 10)">
   <br>
   <button id="submitBtn" onclick="checkDate()">Submit</button>
 
+  <!-- Short message -->
   <div id="shortMessage"></div>
+
+  <!-- Question Yes/No -->
   <div id="questionBox"></div>
+
+  <!-- Long message -->
   <div id="longMessage"></div>
+
+  <!-- Surprise image -->
   <img id="cuteImage" src="rema.jpg" alt="Surprise Image">
-  <div id="musicBox"></div>
+
+  <!-- Music -->
+  <audio id="bgMusic" loop>
+    <source src="rema.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </div>
 
 <script>
-const fullMessage = `My bibi Rema,
+const fullMessage = `My dearest Rema,
 
 Happy monthsary, mahal ko 😘💖. Every day with you feels brighter and sweeter. I love the way you laugh, the way you care, and how you make my heart feel safe. You’re my favorite person, my best friend, and my home all at once.
 
@@ -215,12 +230,7 @@ function showLongMessage(answer) {
   if(answer) {
     typeMessage(fullMessage, 'longMessage', 30);
     document.getElementById("cuteImage").style.display = "block";
-
-    const musicBox = document.getElementById("musicBox");
-    musicBox.innerHTML = `<iframe width="0" height="0"
-      src="https://www.tiktok.com/embed/TpOCHCNNtRU?autoplay=1"
-      frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-    </iframe>`;
+    document.getElementById("bgMusic").play();
   }
 }
 
