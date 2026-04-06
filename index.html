@@ -62,17 +62,15 @@
       transform: scale(1.05);
     }
 
+    #shortMessage, #longMessage, #questionBox, #finalMessage, #cuteImage {
+      display: none;
+    }
+
     #shortMessage {
       margin-top: 20px;
       font-size: 24px;
       font-weight: bold;
       color: #ff4d6d;
-      display: none;
-    }
-
-    #questionBox {
-      margin-top: 20px;
-      display: none;
     }
 
     #longMessage {
@@ -80,7 +78,6 @@
       font-size: 18px;
       line-height: 1.8;
       white-space: pre-line;
-      display: none;
       text-align: left;
       max-height: 400px;
       overflow-y: auto;
@@ -95,9 +92,15 @@
       width: 250px;
       border-radius: 25px;
       margin-top: 25px;
-      display: none;
       box-shadow: 0 12px 30px rgba(0,0,0,0.25);
       transition: all 0.5s ease;
+    }
+
+    #finalMessage {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff4d6d;
     }
 
     .heart, .flower {
@@ -139,30 +142,19 @@
 <body>
 
 <div class="card">
-  <h1>💖 Mahal😾, ready for a surprise?😸</h1>
-  <p>Type our special date to unlock your message!</p>
-
-  <!-- Input & submit button -->
+  <h1 id="mainHeading">💖 Mahal😾, ready for a surprise?😸</h1>
   <input type="text" id="dateInput" placeholder="Type the date (e.g., September 10)">
   <br>
   <button id="submitBtn" onclick="checkDate()">Submit</button>
 
-  <!-- Short message -->
   <div id="shortMessage"></div>
-
-  <!-- Question Yes/No -->
   <div id="questionBox"></div>
-
-  <!-- Long message -->
   <div id="longMessage"></div>
-
-  <!-- Surprise image -->
   <img id="cuteImage" src="rema.jpg" alt="Surprise Image">
+  <div id="finalMessage"></div>
 
-  <!-- Music -->
   <audio id="bgMusic" loop>
     <source src="rema.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
   </audio>
 </div>
 
@@ -177,84 +169,108 @@ Here’s to many more months and years together, my bibi 💕. I love you endles
 
 — Yours, forever and always 💌`;
 
-function typeMessage(message, elementId, delay = 40) {
+function typeMessage(message, elementId, delay = 40, callback=null) {
   const element = document.getElementById(elementId);
-  let index = 0;
   element.style.display = 'block';
   element.textContent = '';
+  let index = 0;
   const typing = setInterval(() => {
     element.textContent += message[index];
     index++;
-    if (index >= message.length) {
+    if(index >= message.length) {
       clearInterval(typing);
-      startFlowerConfetti(); // Trigger confetti after typing finishes
+      if(callback) callback();
     }
   }, delay);
 }
 
 function checkDate() {
   const input = document.getElementById("dateInput").value.trim().toLowerCase();
-  if (input === "september 10" || input === "september 10, 2025") {
-    document.getElementById("submitBtn").style.display = "none";
-    document.getElementById("dateInput").style.display = "none";
+  if(input === "september 10" || input === "september 10, 2025") {
+    // Hide inputs and heading
+    document.getElementById("submitBtn").style.display = 'none';
+    document.getElementById("dateInput").style.display = 'none';
+    document.getElementById("mainHeading").style.display = 'none';
 
+    // Show short message only
     const shortMsg = document.getElementById("shortMessage");
     shortMsg.textContent = "Happy Monthsary, bibi ko! 😚";
-    shortMsg.style.display = 'block';
+    showMessage('shortMessage');
 
+    // Show question after delay
     setTimeout(() => {
       const questionBox = document.getElementById("questionBox");
-      questionBox.style.display = 'block';
       questionBox.innerHTML = `
         <p>Do you want to read my full love message, bibi? 💕</p>
-        <button id="yesBtn" onclick="showLongMessage(true)">Yes 💕</button>
-        <button id="noBtn" onclick="trickNo()">No 😢</button>
+        <button onclick="showLongMessage(true)">Yes 💕</button>
+        <button onclick="trickNo()">No 😢</button>
       `;
+      showMessage('questionBox');
     }, 1000);
   } else {
     alert("Hmm… that’s not quite right 😅. Try again!");
   }
 }
 
+// Trick No button to always say Yes
 function trickNo() {
-  const noBtn = document.getElementById("noBtn");
+  const noBtn = document.querySelector("#questionBox button:last-child");
   noBtn.textContent = "Yes 💕";
   noBtn.onclick = () => showLongMessage(true);
   alert("Haha, you can't say no, bibi 😏💖");
 }
 
+// Show long message
 function showLongMessage(answer) {
-  const questionBox = document.getElementById("questionBox");
-  questionBox.style.display = 'none';
-
   if(answer) {
-    typeMessage(fullMessage, 'longMessage', 30);
+    showMessage('longMessage');
+    typeMessage(fullMessage, 'longMessage', 30, showFinalMessage);
     document.getElementById("cuteImage").style.display = "block";
     document.getElementById("bgMusic").play();
   }
+}
+
+// Show final magical message after reading
+function showFinalMessage() {
+  const finalMsg = document.getElementById("finalMessage");
+  finalMsg.textContent = "So proud of us bibi 🤘";
+  finalMsg.style.display = 'block';
+  startFlowerConfetti();
+}
+
+// Utility to show only one element at a time
+function showMessage(idToShow) {
+  const all = ['shortMessage','questionBox','longMessage','finalMessage'];
+  all.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.style.display = 'none';
+  });
+  const elToShow = document.getElementById(idToShow);
+  if(elToShow) elToShow.style.display = 'block';
 }
 
 // Floating hearts animation
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.animationDuration = (3 + Math.random()*3) + "s";
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 6000);
 }, 300);
 
-// Floating flowers confetti after message
+// Flower confetti animation
 function startFlowerConfetti() {
-  for(let i=0; i<50; i++) {
+  for(let i=0;i<50;i++){
     const flower = document.createElement("div");
     flower.className = "flower";
-    flower.style.left = Math.random() * 100 + "vw";
-    flower.style.background = `hsl(${Math.random()*360}, 70%, 75%)`;
-    flower.style.width = flower.style.height = (10 + Math.random()*15) + "px";
-    flower.style.animationDuration = (4 + Math.random()*4) + "s";
+    flower.style.left = Math.random()*100 + "vw";
+    flower.style.background = `hsl(${Math.random()*360},70%,75%)`;
+    const size = 10+Math.random()*15;
+    flower.style.width = flower.style.height = size + "px";
+    flower.style.animationDuration = (4+Math.random()*4) + "s";
     document.body.appendChild(flower);
-    setTimeout(() => flower.remove(), 8000);
+    setTimeout(()=>flower.remove(),8000);
   }
 }
 </script>
