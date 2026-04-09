@@ -38,6 +38,18 @@ input {
   text-align: center;
 }
 
+/* BUTTON */
+button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
 /* BOOM */
 #boom {
   display: none;
@@ -70,16 +82,24 @@ video {
 /* LETTER */
 #message {
   display: none;
-  background: white;
+  background: linear-gradient(145deg, #ffe0e6, #ffd1da);
   padding: 30px;
   border-radius: 20px;
   margin-top: 20px;
   text-align: left;
   line-height: 1.8;
-  max-height: 80vh;
-  overflow-y: auto;
+  max-height: 80vh;  
+  overflow-y: auto;   /* she can scroll manually */
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   font-size: 18px;
+  border: 2px solid #ff4d6d;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* Glow animation */
+@keyframes glow {
+  0% { box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3); }
+  100% { box-shadow: 0 10px 35px rgba(255, 77, 109, 0.7); }
 }
 
 /* 🌸 PETALS */
@@ -107,6 +127,7 @@ video {
 .blue { color: #3498db; }
 .green { color: #2ecc71; }
 .orange { color: #e67e22; }
+
 </style>
 </head>
 
@@ -116,7 +137,9 @@ video {
 
 <h1 id="title">💖 Mahal, ready for a surprise? 💖</h1>
 
-<input id="date" placeholder="Type our special date" onkeyup="checkDate(event)">
+<input id="date" placeholder="Type our special date">
+<br>
+<button id="submitBtn" onclick="checkDate()">Submit 💖</button>
 
 <div id="boom">Happy Monthsary, bibi ko 😚</div>
 
@@ -131,7 +154,6 @@ video {
 </div>
 
 <script>
-
 // Full message with colors
 const text = `
 <span class="highlight">My bibi remrem,</span><br><br>
@@ -167,16 +189,17 @@ setInterval(()=>{
   setTimeout(()=>petal.remove(),10000);
 },500);
 
-// check date on keyup
-function checkDate(e){
+// check date
+function checkDate(){
   let d = document.getElementById("date").value.toLowerCase();
   if(d==="september 10"||d==="september 10, 2025"){
     document.getElementById("title").style.display="none";
     document.getElementById("date").style.display="none";
+    document.getElementById("submitBtn").style.display="none"; // remove after correct
     document.getElementById("boom").style.display="block";
-    setTimeout(showQuestion,5000);
-  } else if(e.key === "Enter" || e.keyCode === 13) {
-    alert("Hehe 😏 medyo mali yan, isipin mo ulit!");
+    setTimeout(showQuestion,5000); // 5 seconds delay
+  } else {
+    alert("Oops 😏 mali ang date! Try again.");
   }
 }
 
@@ -194,7 +217,7 @@ function showQuestion(){
 
 // no trap
 function no(){
-  alert("No?? Sure ka? 😏");
+  alert("No?? 😏 Are you sure?");
 }
 
 // start
@@ -203,10 +226,27 @@ function start(){
   let v=document.getElementById("vid");
   v.style.display="block";
   v.play();
+
   setTimeout(()=>{
     let m=document.getElementById("message");
     m.style.display="block";
     m.innerHTML = text;
+
+    // Slowly scroll down automatically
+    let scrollSpeed = 1; // pixels per 50ms
+    let scrollInterval = setInterval(()=>{
+      if (m.scrollTop + m.clientHeight < m.scrollHeight) {
+        m.scrollTop += scrollSpeed;
+      } else {
+        clearInterval(scrollInterval); 
+      }
+    }, 50);
+
+    // She can scroll manually anytime
+    m.addEventListener('scroll', ()=>{
+      // Manual scrolling allowed, automatic doesn't fight
+    });
+
   },2000);
 }
 
