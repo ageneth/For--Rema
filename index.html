@@ -1,169 +1,177 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>For Rema ❤️</title>
+<title>For Rema ❤️</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: black;
-      color: white;
-      overflow: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #ffdde1, #ee9ca7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
 
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      text-align: center;
-      padding: 20px;
-    }
+/* MAIN */
+.container {
+  text-align: center;
+  max-width: 700px;
+  width: 90%;
+}
 
-    h1 {
-      font-size: 45px;
-      color: #ff4d6d;
-      text-shadow: 0 0 20px #ff4d6d;
-    }
+/* TITLE */
+h1 {
+  font-size: 36px;
+  color: #ff4d6d;
+}
 
-    input {
-      padding: 15px;
-      width: 80%;
-      max-width: 400px;
-      border-radius: 10px;
-      border: none;
-      font-size: 18px;
-    }
+/* INPUT */
+input {
+  width: 80%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
 
-    button {
-      margin-top: 15px;
-      padding: 14px 30px;
-      font-size: 18px;
-      border: none;
-      background: #ff4d6d;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+/* BUTTON */
+button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
 
-    /* INTRO */
-    #intro {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 40px;
-      animation: fadeOut 3s forwards;
-    }
+/* BOOM */
+#boom {
+  display: none;
+  font-size: 42px;
+  color: #ff4d6d;
+  font-weight: bold;
+  animation: fadeIn 1.5s ease;
+}
 
-    @keyframes fadeOut {
-      0% {opacity:1;}
-      100% {opacity:0; visibility:hidden;}
-    }
+/* FADE */
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(20px);}
+  to {opacity:1; transform: translateY(0);}
+}
 
-    /* BOOM TEXT */
-    #boom {
-      display: none;
-      font-size: 50px;
-      color: #ff4d6d;
-      animation: pop 1s ease;
-      text-shadow: 0 0 20px pink;
-    }
+/* QUESTION */
+#question {
+  display: none;
+  margin-top: 20px;
+}
 
-    @keyframes pop {
-      0% {transform: scale(0.5); opacity:0;}
-      100% {transform: scale(1); opacity:1;}
-    }
+/* VIDEO */
+video {
+  display: none;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+}
 
-    /* HEARTBEAT */
-    @keyframes beat {
-      0%,100% {transform: scale(1);}
-      50% {transform: scale(1.1);}
-    }
+/* LETTER */
+#message {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  margin-top: 20px;
+  text-align: left;
+  line-height: 1.8;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
-    #boom span {
-      display: inline-block;
-      animation: beat 1s infinite;
-    }
+/* CLICK BUTTON */
+#revealBtn {
+  display: none;
+}
 
-    #question {
-      display: none;
-    }
+/* FINAL */
+#ending {
+  display: none;
+  font-size: 28px;
+  color: #ff4d6d;
+  margin-top: 30px;
+  font-weight: bold;
+  text-align: center;
+}
 
-    video {
-      display: none;
-      width: 90%;
-      max-width: 700px;
-      border-radius: 20px;
-      margin-top: 20px;
-    }
+/* POPUP */
+#popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  display: none;
+  font-size: 18px;
+}
 
-    #message {
-      display: none;
-      max-width: 700px;
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 20px;
-      margin-top: 20px;
-      text-align: left;
-    }
+/* 🌸 PETALS */
+.petal {
+  position: fixed;
+  top: -10px;
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle, #ffb6c1, #ff4d6d);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  opacity: 0.7;
+  animation: fall linear forwards;
+}
 
-    #ending {
-      display: none;
-      font-size: 30px;
-      color: #ff4d6d;
-      margin-top: 20px;
-      text-shadow: 0 0 15px pink;
-    }
-
-    #popup {
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 15px;
-      display: none;
-      font-size: 20px;
-    }
-  </style>
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div id="intro">💖 Our Story Begins... 💖</div>
+<div class="container">
 
-<div class="center">
+<h1 id="title">💖 Mahal, ready for a surprise? 💖</h1>
 
-  <h1 id="title">Mahal😾 ready for a surprise? 😸</h1>
+<input id="date" placeholder="Type our special date">
+<br>
+<button onclick="checkDate()">Submit</button>
 
-  <input id="date" placeholder="Type the date HAHAHA">
-  <button onclick="checkDate()">Submit</button>
+<div id="boom">Happy Monthsary, bibi ko 😚</div>
+<button id="nextBtn" onclick="showQuestion()" style="display:none;">Next 💕</button>
 
-  <div id="boom">
-    💖 <span>HAPPY MONTHSARY, BIBI KO 😚</span> 💖
-  </div>
+<div id="question"></div>
 
-  <button id="nextBtn" onclick="showQuestion()" style="display:none;">Next 💕</button>
+<video id="vid" loop>
+<source src="rema.mp4" type="video/mp4">
+</video>
 
-  <div id="question"></div>
+<div id="message"></div>
 
-  <video id="vid" loop>
-    <source src="rema.mp4" type="video/mp4">
-  </video>
+<button id="revealBtn" onclick="showFinal()">Click it 💕</button>
 
-  <div id="message"></div>
-  <div id="ending"></div>
+<div id="ending"></div>
 
-  <button onclick="location.reload()" id="replay" style="display:none;">Replay 💖</button>
+<button id="replay" onclick="location.reload()" style="display:none;">Replay 💖</button>
 
 </div>
 
@@ -192,9 +200,20 @@ const text = `‎My bibi remrem,
 ‎
 ‎From your Alang (nalang kasi pangit ng pangalan ko)`;
 
+// 🌸 PETALS
+setInterval(()=>{
+  const petal = document.createElement("div");
+  petal.className = "petal";
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.animationDuration = (5 + Math.random() * 5) + "s";
+  document.body.appendChild(petal);
+
+  setTimeout(()=>petal.remove(),10000);
+},500);
+
 // popup
 function pop(msg){
-  const p=document.getElementById("popup");
+  let p=document.getElementById("popup");
   p.innerText=msg;
   p.style.display="block";
   setTimeout(()=>p.style.display="none",2000);
@@ -213,7 +232,7 @@ function checkDate(){
     document.getElementById("nextBtn").style.display="block";
 
   } else {
-    pop("HAHAHA mali 😭 isipin mo mabuti!");
+    pop("Maliii 😚 isipin mo ulit!");
   }
 }
 
@@ -224,14 +243,14 @@ function showQuestion(){
 
   let q=document.getElementById("question");
   q.innerHTML=`
-    <p>Read my message? 💕</p>
+    <p>Do you want to read my message? 💕</p>
     <button onclick="start()">Yes 💖</button>
     <button onclick="no()">No 😢</button>
   `;
   q.style.display="block";
 }
 
-// no trap 😭
+// no trap
 function no(){
   pop("No?? sure ka? 😏");
 
@@ -243,7 +262,7 @@ function no(){
   `;
 }
 
-// start story
+// start
 function start(){
   document.getElementById("question").style.display="none";
 
@@ -257,15 +276,30 @@ function start(){
     m.innerText=text;
 
     setTimeout(()=>{
-      let e=document.getElementById("ending");
-      e.innerText="So proud of us, bibi 🤘";
-      e.style.display="block";
-
-      document.getElementById("replay").style.display="block";
-
-    },3000);
+      document.getElementById("revealBtn").style.display="inline-block";
+    },2000);
 
   },2000);
+}
+
+// final romantic reveal
+function showFinal(){
+
+  const ending = document.getElementById("ending");
+
+  ending.innerText = "I’m so proud of us, bibi… 🤘💖";
+  ending.style.display = "block";
+
+  ending.style.opacity = 0;
+  ending.style.transform = "translateY(20px)";
+
+  setTimeout(()=>{
+    ending.style.transition = "all 2s ease";
+    ending.style.opacity = 1;
+    ending.style.transform = "translateY(0)";
+  },100);
+
+  document.getElementById("replay").style.display="inline-block";
 }
 
 </script>
