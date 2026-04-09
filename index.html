@@ -7,44 +7,34 @@
     body {
       margin: 0;
       font-family: Arial;
-      background: linear-gradient(to right, #ffdde1, #ee9ca7);
-      overflow-x: hidden;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: black;
+      color: white;
+      overflow: hidden;
     }
 
-    /* FULL SCREEN SECTION */
-    .card {
-      width: 100%;
-      min-height: 100vh;
-
+    .center {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-
+      flex-direction: column;
+      height: 100vh;
       text-align: center;
-      padding: 40px 20px;
-
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(10px);
+      padding: 20px;
     }
 
     h1 {
-      font-size: 40px;
+      font-size: 45px;
       color: #ff4d6d;
+      text-shadow: 0 0 20px #ff4d6d;
     }
 
     input {
-      width: 90%;
-      max-width: 400px;
       padding: 15px;
-      font-size: 18px;
+      width: 80%;
+      max-width: 400px;
       border-radius: 10px;
-      border: 1px solid #ccc;
-      margin-top: 15px;
+      border: none;
+      font-size: 18px;
     }
 
     button {
@@ -58,233 +48,224 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background: #e60039;
+    /* INTRO */
+    #intro {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      animation: fadeOut 3s forwards;
     }
 
-    #shortMessage {
-      font-size: 38px;
+    @keyframes fadeOut {
+      0% {opacity:1;}
+      100% {opacity:0; visibility:hidden;}
+    }
+
+    /* BOOM TEXT */
+    #boom {
+      display: none;
+      font-size: 50px;
       color: #ff4d6d;
-      margin-top: 40px;
-      display: none;
-      opacity: 0;
-      transform: scale(0.8);
+      animation: pop 1s ease;
+      text-shadow: 0 0 20px pink;
     }
 
-    #questionBox {
+    @keyframes pop {
+      0% {transform: scale(0.5); opacity:0;}
+      100% {transform: scale(1); opacity:1;}
+    }
+
+    /* HEARTBEAT */
+    @keyframes beat {
+      0%,100% {transform: scale(1);}
+      50% {transform: scale(1.1);}
+    }
+
+    #boom span {
+      display: inline-block;
+      animation: beat 1s infinite;
+    }
+
+    #question {
       display: none;
-      margin-top: 30px;
-      font-size: 20px;
     }
 
     video {
       display: none;
       width: 90%;
       max-width: 700px;
-      margin-top: 20px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      margin-top: 20px;
     }
 
-    #longMessage {
+    #message {
       display: none;
-      margin-top: 20px;
       max-width: 700px;
-      font-size: 18px;
-      text-align: left;
-      line-height: 1.8;
-      background: rgba(255,255,255,0.95);
-      padding: 25px;
+      background: white;
+      color: black;
+      padding: 20px;
       border-radius: 20px;
+      margin-top: 20px;
+      text-align: left;
     }
 
-    #finalMessage {
+    #ending {
       display: none;
       font-size: 30px;
       color: #ff4d6d;
-      margin-top: 30px;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    #replayBtn {
-      display: none;
       margin-top: 20px;
+      text-shadow: 0 0 15px pink;
     }
 
-    /* CINEMATIC MODE */
-    .cinema {
-      background: black !important;
-      color: white;
-    }
-
-    /* FLOATING HEARTS */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: float 6s infinite;
-    }
-
-    .heart:before, .heart:after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-
-    .heart:before { top: -10px; }
-    .heart:after { left: -10px; }
-
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    #popup {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 15px;
+      display: none;
+      font-size: 20px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="card" id="card">
+<div id="intro">💖 Our Story Begins... 💖</div>
 
-  <h1 id="mainHeading">💖 Mahal😾, ready for a surprise?😸</h1>
+<div class="center">
 
-  <input id="dateInput" placeholder="Type the date (Ayusin mo HAHAHA">
-  <button id="submitBtn" onclick="checkDate()">Submit</button>
+  <h1 id="title">Mahal😾 ready for a surprise? 😸</h1>
 
-  <div id="shortMessage"></div>
-  <div id="questionBox"></div>
+  <input id="date" placeholder="Type the date HAHAHA">
+  <button onclick="checkDate()">Submit</button>
 
-  <video id="loveVideo" loop>
+  <div id="boom">
+    💖 <span>HAPPY MONTHSARY, BIBI KO 😚</span> 💖
+  </div>
+
+  <button id="nextBtn" onclick="showQuestion()" style="display:none;">Next 💕</button>
+
+  <div id="question"></div>
+
+  <video id="vid" loop>
     <source src="rema.mp4" type="video/mp4">
   </video>
 
-  <div id="longMessage"></div>
-  <div id="finalMessage"></div>
+  <div id="message"></div>
+  <div id="ending"></div>
 
-  <button id="replayBtn" onclick="replayAll()">Replay 💖</button>
+  <button onclick="location.reload()" id="replay" style="display:none;">Replay 💖</button>
 
 </div>
 
+<div id="popup"></div>
+
 <script>
 
-// CHANGE THIS MESSAGE
-const fullMessage = `My dearest Rema,
+const text = `‎My bibi remrem,
+‎ 
+‎Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?
+‎
+‎Mahal, thank you a. thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas  initindi mo ko. sorry po. bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.
+‎
+‎Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o HAHAHAHA. kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din HAHAHA tsar. 
+‎
+‎Sumakit ba ulo mo habang binabasa mo to mahal?, pagaling ikaw bibi a. wag na magpuyat po. pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. pero bibi, alam ko nmn na miss na miss mo ko dyan at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. kahit saan banda natin tignan, mali talaga pero mali ko din? sorry pooo, iloveyou po.
+‎
+‎Mahal, hintayin mo'kong  yumaman a. bibilhan kita ng aso, baka. bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke( bakit ka nmn kasi aayaw kasii? HAHAHAHA)
+‎
+‎Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. sorry. dapat a? hehe
+‎
+‎bibi, ang mahalaga ang importante kaya fighting langg!🤘 
+‎ 
+‎ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)
+‎
+‎
+‎From your Alang (nalang kasi pangit ng pangalan ko)`;
 
-(Write your full message here 💕)`;
-
-// hearts
-setInterval(()=>{
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.style.left=Math.random()*100+"vw";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),6000);
-},300);
-
-// typing
-function typeMessage(text,id,speed=30,callback=null){
-  const el=document.getElementById(id);
-  el.innerHTML="";
-  el.style.display="block";
-  let i=0;
-
-  const typing=setInterval(()=>{
-    el.innerHTML+=text[i];
-    i++;
-    if(i>=text.length){
-      clearInterval(typing);
-      if(callback) callback();
-    }
-  },speed);
+// popup
+function pop(msg){
+  const p=document.getElementById("popup");
+  p.innerText=msg;
+  p.style.display="block";
+  setTimeout(()=>p.style.display="none",2000);
 }
 
 // check date
 function checkDate(){
-  const input=document.getElementById("dateInput").value.toLowerCase().trim();
+  let d=document.getElementById("date").value.toLowerCase();
 
-  if(input==="september 10"||input==="september 10, 2025"){
+  if(d==="september 10"||d==="september 10, 2025"){
 
-    document.getElementById("mainHeading").style.display="none";
-    document.getElementById("dateInput").style.display="none";
-    document.getElementById("submitBtn").style.display="none";
+    document.getElementById("title").style.display="none";
+    document.getElementById("date").style.display="none";
 
-    const msg=document.getElementById("shortMessage");
-    msg.innerText="Happy Monthsary, bibi ko 😚";
-    msg.style.display="block";
-
-    setTimeout(()=>{
-      msg.style.transition="1s";
-      msg.style.opacity=1;
-      msg.style.transform="scale(1.1)";
-    },100);
-
-    setTimeout(()=>{msg.style.transform="scale(1)";},1200);
-
-    setTimeout(()=>{
-      const q=document.getElementById("questionBox");
-      q.innerHTML=`
-        <p>Do you want to read my full love message? 💕</p>
-        <button onclick="startStory()">Yes 💕</button>
-        <button onclick="trickNo()">No 😢</button>
-      `;
-      q.style.display="block";
-    },2500);
+    document.getElementById("boom").style.display="block";
+    document.getElementById("nextBtn").style.display="block";
 
   } else {
-    alert("Wrong date 😅 try again!");
+    pop("HAHAHA mali 😭 isipin mo mabuti!");
   }
 }
 
-// no trick 😏
-function trickNo(){
-  alert("Bawal mo i-no 😏💖");
-  startStory();
+// question
+function showQuestion(){
+  document.getElementById("boom").style.display="none";
+  document.getElementById("nextBtn").style.display="none";
+
+  let q=document.getElementById("question");
+  q.innerHTML=`
+    <p>Read my message? 💕</p>
+    <button onclick="start()">Yes 💖</button>
+    <button onclick="no()">No 😢</button>
+  `;
+  q.style.display="block";
+}
+
+// no trap 😭
+function no(){
+  pop("No?? sure ka? 😏");
+
+  let q=document.getElementById("question");
+  q.innerHTML=`
+    <p>Last chance 😭</p>
+    <button onclick="start()">Yes 💖</button>
+    <button onclick="start()">Yes 💖</button>
+  `;
 }
 
 // start story
-function startStory(){
+function start(){
+  document.getElementById("question").style.display="none";
 
-  document.getElementById("questionBox").style.display="none";
-  document.getElementById("shortMessage").style.display="none";
-
-  document.body.classList.add("cinema");
-  document.getElementById("card").style.background="transparent";
-
-  const video=document.getElementById("loveVideo");
-  video.style.display="block";
-  video.muted=false;
-  video.play();
+  let v=document.getElementById("vid");
+  v.style.display="block";
+  v.play();
 
   setTimeout(()=>{
-    typeMessage(fullMessage,"longMessage",30,showEnding);
-  },2000);
-}
-
-// ending
-function showEnding(){
-  setTimeout(()=>{
-    const end=document.getElementById("finalMessage");
-    end.innerText="So proud of us, bibi 🤘";
-    end.style.display="block";
+    let m=document.getElementById("message");
+    m.style.display="block";
+    m.innerText=text;
 
     setTimeout(()=>{
-      end.style.transition="1.5s";
-      end.style.opacity=1;
-      end.style.transform="translateY(0)";
-    },100);
+      let e=document.getElementById("ending");
+      e.innerText="So proud of us, bibi 🤘";
+      e.style.display="block";
 
-    document.getElementById("replayBtn").style.display="inline-block";
-  },1500);
-}
+      document.getElementById("replay").style.display="block";
 
-// replay
-function replayAll(){
-  location.reload();
+    },3000);
+
+  },2000);
 }
 
 </script>
