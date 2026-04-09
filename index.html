@@ -48,6 +48,10 @@ button {
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+  transition: 0.3s;
+}
+button:hover {
+  background: #ff7993;
 }
 
 /* BOOM */
@@ -88,8 +92,8 @@ video {
   margin-top: 20px;
   text-align: left;
   line-height: 1.8;
-  max-height: 80vh;  
-  overflow-y: auto;   /* she can scroll manually */
+  max-height: 80vh;
+  overflow-y: auto; 
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   font-size: 18px;
   border: 2px solid #ff4d6d;
@@ -100,6 +104,32 @@ video {
 @keyframes glow {
   0% { box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3); }
   100% { box-shadow: 0 10px 35px rgba(255, 77, 109, 0.7); }
+}
+
+/* FANCY SCROLLBAR */
+#message::-webkit-scrollbar {
+  width: 12px;
+}
+#message::-webkit-scrollbar-track {
+  background: #ffd1da;
+  border-radius: 10px;
+}
+#message::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ff4d6d, #ff7993);
+  border-radius: 10px;
+}
+#message::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#ff7993, #ff4d6d);
+}
+
+/* BUTTON COLORS */
+button.yes, button.no {
+  background: #ff4d6d;
+  color: white;
+  margin: 5px;
+}
+button.yes:hover, button.no:hover {
+  background: #ff7993;
 }
 
 /* 🌸 PETALS */
@@ -114,13 +144,12 @@ video {
   opacity: 0.7;
   animation: fall linear forwards;
 }
-
 @keyframes fall {
   0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
   100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
 
-/* COLORED MESSAGE STYLES */
+/* MESSAGE COLORS */
 .highlight { color: #ff4d6d; font-weight: bold; }
 .pink { color: #ff69b4; }
 .purple { color: #9b59b6; }
@@ -130,7 +159,6 @@ video {
 
 </style>
 </head>
-
 <body>
 
 <div class="container">
@@ -142,7 +170,6 @@ video {
 <button id="submitBtn" onclick="checkDate()">Submit 💖</button>
 
 <div id="boom">Happy Monthsary, bibi ko 😚</div>
-
 <div id="question"></div>
 
 <video id="vid" loop>
@@ -154,7 +181,7 @@ video {
 </div>
 
 <script>
-// Full message with colors
+// Full message
 const text = `
 <span class="highlight">My bibi remrem,</span><br><br>
 <span class="pink">Happy Monthsary, bibi ko 😚. Pakiss nga, sge na kasi. I love youuu 😚.</span><br>
@@ -195,9 +222,9 @@ function checkDate(){
   if(d==="september 10"||d==="september 10, 2025"){
     document.getElementById("title").style.display="none";
     document.getElementById("date").style.display="none";
-    document.getElementById("submitBtn").style.display="none"; // remove after correct
+    document.getElementById("submitBtn").style.display="none";
     document.getElementById("boom").style.display="block";
-    setTimeout(showQuestion,5000); // 5 seconds delay
+    setTimeout(showQuestion,5000);
   } else {
     alert("Oops 😏 mali ang date! Try again.");
   }
@@ -209,15 +236,21 @@ function showQuestion(){
   let q=document.getElementById("question");
   q.innerHTML=`
     <p>Do you want to read my message? 💕</p>
-    <button onclick="start()">Yes 💖</button>
-    <button onclick="no()">No 😢</button>
+    <button class="yes" onclick="start()">Yes 💖</button>
+    <button class="no" onclick="noClick()">No 😢</button>
   `;
   q.style.display="block";
 }
 
-// no trap
-function no(){
+// no click
+function noClick(){
   alert("No?? 😏 Are you sure?");
+  let q=document.getElementById("question");
+  q.innerHTML=`
+    <p>Last chance 😭</p>
+    <button class="yes" onclick="start()">Yes 💖</button>
+    <button class="yes" onclick="start()">Yes 💖</button>
+  `;
 }
 
 // start
@@ -232,21 +265,18 @@ function start(){
     m.style.display="block";
     m.innerHTML = text;
 
-    // Slowly scroll down automatically
-    let scrollSpeed = 1; // pixels per 50ms
+    // Slow auto-scroll
+    let scrollSpeed = 1;
     let scrollInterval = setInterval(()=>{
-      if (m.scrollTop + m.clientHeight < m.scrollHeight) {
+      if(m.scrollTop + m.clientHeight < m.scrollHeight){
         m.scrollTop += scrollSpeed;
       } else {
-        clearInterval(scrollInterval); 
+        clearInterval(scrollInterval);
       }
-    }, 50);
+    },50);
 
-    // She can scroll manually anytime
-    m.addEventListener('scroll', ()=>{
-      // Manual scrolling allowed, automatic doesn't fight
-    });
-
+    // Manual scroll allowed
+    m.addEventListener('scroll', ()=>{});
   },2000);
 }
 
