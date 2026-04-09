@@ -106,22 +106,6 @@ video {
   100% { box-shadow: 0 10px 35px rgba(255, 77, 109, 0.7); }
 }
 
-/* FANCY SCROLLBAR */
-#message::-webkit-scrollbar {
-  width: 12px;
-}
-#message::-webkit-scrollbar-track {
-  background: #ffd1da;
-  border-radius: 10px;
-}
-#message::-webkit-scrollbar-thumb {
-  background: linear-gradient(#ff4d6d, #ff7993);
-  border-radius: 10px;
-}
-#message::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(#ff7993, #ff4d6d);
-}
-
 /* BUTTON COLORS */
 button.yes, button.no {
   background: #ff4d6d;
@@ -245,6 +229,7 @@ function showQuestion(){
 // no click
 function noClick(){
   alert("No?? 😏 Are you sure?");
+  // both buttons become Yes
   let q=document.getElementById("question");
   q.innerHTML=`
     <p>Last chance 😭</p>
@@ -275,7 +260,6 @@ function start(){
       }
     },50);
 
-    // Manual scroll allowed
     m.addEventListener('scroll', ()=>{});
   },2000);
 }
