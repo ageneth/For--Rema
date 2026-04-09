@@ -35,18 +35,7 @@ input {
   border-radius: 10px;
   border: none;
   font-size: 16px;
-}
-
-/* BUTTON */
-button {
-  margin-top: 15px;
-  padding: 12px 25px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
+  text-align: center;
 }
 
 /* BOOM */
@@ -87,34 +76,10 @@ video {
   margin-top: 20px;
   text-align: left;
   line-height: 1.8;
-  max-height: 80vh; /* whole screen */
+  max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-/* FINAL */
-#ending {
-  display: none;
-  font-size: 28px;
-  color: #ff4d6d;
-  margin-top: 30px;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* POPUP */
-#popup {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ffe4e1;
-  padding: 20px;
-  border-radius: 15px;
-  display: none;
   font-size: 18px;
-  color: #ff4d6d;
-  font-weight: bold;
 }
 
 /* 🌸 PETALS */
@@ -131,15 +96,17 @@ video {
 }
 
 @keyframes fall {
-  0% {
-    transform: translateY(0) rotate(45deg);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
+
+/* COLORED MESSAGE STYLES */
+.highlight { color: #ff4d6d; font-weight: bold; }
+.pink { color: #ff69b4; }
+.purple { color: #9b59b6; }
+.blue { color: #3498db; }
+.green { color: #2ecc71; }
+.orange { color: #e67e22; }
 </style>
 </head>
 
@@ -149,9 +116,7 @@ video {
 
 <h1 id="title">💖 Mahal, ready for a surprise? 💖</h1>
 
-<input id="date" placeholder="Type our special date">
-<br>
-<button onclick="checkDate()">Submit</button>
+<input id="date" placeholder="Type our special date" onkeyup="checkDate(event)">
 
 <div id="boom">Happy Monthsary, bibi ko 😚</div>
 
@@ -163,36 +128,34 @@ video {
 
 <div id="message"></div>
 
-<div id="ending"></div>
-
-<button id="replay" onclick="location.reload()" style="display:none;">Replay 💖</button>
-
 </div>
-
-<div id="popup"></div>
 
 <script>
 
-const text = `‎My bibi remrem,
-‎ 
-‎Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?
-‎
-‎Mahal, thank you a. thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas  initindi mo ko. sorry po. bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.
-‎
-‎Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o HAHAHAHA. kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din HAHAHA tsar. 
-‎
-‎Sumakit ba ulo mo habang binabasa mo to mahal?, pagaling ikaw bibi a. wag na magpuyat po. pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. pero bibi, alam ko nmn na miss na miss mo ko dyan at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. kahit saan banda natin tignan, mali talaga pero mali ko din? sorry pooo, iloveyou po.
-‎
-‎Mahal, hintayin mo'kong  yumaman a. bibilhan kita ng aso, baka. bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke( bakit ka nmn kasi aayaw kasii? HAHAHAHA)
-‎
-‎Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. sorry. dapat a? hehe
-‎
-‎bibi, ang  ang importante kaya fighting langg!🤘 
-‎ 
-‎ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)
-‎
-‎
-‎From your Alang (nalang kasi pangit ng pangalan ko)`;
+// Full message with colors
+const text = `
+<span class="highlight">My bibi remrem,</span><br><br>
+<span class="pink">Happy Monthsary, bibi ko 😚. Pakiss nga, sge na kasi. I love youuu 😚.</span><br>
+Iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe.<br>
+Bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko?<br>
+D na kita masyadong naka musta talaga. Bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?<br><br>
+
+Mahal, thank you a. Thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas initindi mo ko. Sorry po. Bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.<br><br>
+
+Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o <span class="orange">HAHAHAHA</span>. Kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din <span class="orange">HAHAHA tsar</span>.<br><br>
+
+Sumakit ba ulo mo habang binabasa mo to mahal? Pagaling ikaw bibi a. Wag na magpuyat po. Pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. Pero bibi, alam ko nmn na miss na miss mo ko dyan at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. Wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. Tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. Kahit saan banda natin tignan, mali talaga pero mali ko din? Sorry pooo, iloveyou po.<br><br>
+
+Mahal, hintayin mo'kong yumaman a. Bibilhan kita ng aso, baka. Bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi <span class="orange">HAHAHAHA</span> ay, joke (bakit ka nmn kasi aayaw kasii? <span class="orange">HAHAHAHA</span>)<br><br>
+
+Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. Sorry. Dapat a? hehe<br><br>
+
+Bibi, ang importante kaya <span class="green">fighting langg! 🤘</span><br><br>
+
+<span class="highlight">ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)</span><br><br>
+
+<span class="purple">From your Alang (nalang kasi pangit ng pangalan ko)</span>
+`;
 
 // 🌸 PETALS
 setInterval(()=>{
@@ -204,37 +167,22 @@ setInterval(()=>{
   setTimeout(()=>petal.remove(),10000);
 },500);
 
-// popup
-function pop(msg){
-  let p=document.getElementById("popup");
-  p.innerText=msg;
-  p.style.display="block";
-  setTimeout(()=>p.style.display="none",2500);
-}
-
-// check date
-function checkDate(){
-  let d=document.getElementById("date").value.toLowerCase();
-
+// check date on keyup
+function checkDate(e){
+  let d = document.getElementById("date").value.toLowerCase();
   if(d==="september 10"||d==="september 10, 2025"){
-
     document.getElementById("title").style.display="none";
     document.getElementById("date").style.display="none";
-
     document.getElementById("boom").style.display="block";
-
-    // automatically show next after 5 seconds
     setTimeout(showQuestion,5000);
-
-  } else {
-    pop("Hehe 😏 medyo mali yan, isipin mo ulit!");
+  } else if(e.key === "Enter" || e.keyCode === 13) {
+    alert("Hehe 😏 medyo mali yan, isipin mo ulit!");
   }
 }
 
 // question
 function showQuestion(){
   document.getElementById("boom").style.display="none";
-
   let q=document.getElementById("question");
   q.innerHTML=`
     <p>Do you want to read my message? 💕</p>
@@ -246,50 +194,20 @@ function showQuestion(){
 
 // no trap
 function no(){
-  pop("No?? sure ka? 😏");
-
-  let q=document.getElementById("question");
-  q.innerHTML=`
-    <p>Last chance 😭</p>
-    <button onclick="start()">Yes 💖</button>
-    <button onclick="start()">Yes 💖</button>
-  `;
+  alert("No?? Sure ka? 😏");
 }
 
 // start
 function start(){
   document.getElementById("question").style.display="none";
-
   let v=document.getElementById("vid");
   v.style.display="block";
   v.play();
-
   setTimeout(()=>{
     let m=document.getElementById("message");
     m.style.display="block";
-    m.innerText=text;
-
-    // automatically show ending after 2 seconds
-    setTimeout(showFinal,2000);
-
+    m.innerHTML = text;
   },2000);
-}
-
-// final romantic reveal
-function showFinal(){
-  const ending = document.getElementById("ending");
-  ending.innerText = "I’m so proud of us, bibi… 🤘💖";
-  ending.style.display = "block";
-
-  ending.style.opacity = 0;
-  ending.style.transform = "translateY(20px)";
-
-  setTimeout(()=>{
-    ending.style.transition = "all 2s ease";
-    ending.style.opacity = 1;
-    ending.style.transform = "translateY(0)";
-    document.getElementById("replay").style.display="inline-block";
-  },100);
 }
 
 </script>
