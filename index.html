@@ -8,21 +8,116 @@ body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(to right, #ffdde1, #ee9ca7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   overflow: hidden;
 }
 
-/* VIDEO BACKGROUND */
-#bgVideo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
+/* MAIN */
+.container {
+  text-align: center;
+  max-width: 700px;
+  width: 90%;
 }
 
-/* PETALS */
+/* TITLE */
+h1 {
+  font-size: 36px;
+  color: #ff4d6d;
+}
+
+/* INPUT */
+input {
+  width: 80%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+/* BUTTON */
+button {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* BOOM */
+#boom {
+  display: none;
+  font-size: 42px;
+  color: #ff4d6d;
+  font-weight: bold;
+  animation: fadeIn 1.5s ease;
+}
+
+/* FADE */
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(20px);}
+  to {opacity:1; transform: translateY(0);}
+}
+
+/* QUESTION */
+#question {
+  display: none;
+  margin-top: 20px;
+}
+
+/* VIDEO */
+video {
+  display: none;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+/* LETTER */
+#message {
+  display: none;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  margin-top: 20px;
+  text-align: left;
+  line-height: 1.8;
+  max-height: 80vh; /* whole screen */
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* FINAL */
+#ending {
+  display: none;
+  font-size: 28px;
+  color: #ff4d6d;
+  margin-top: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* POPUP */
+#popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffe4e1;
+  padding: 20px;
+  border-radius: 15px;
+  display: none;
+  font-size: 18px;
+  color: #ff4d6d;
+  font-weight: bold;
+}
+
+/* 🌸 PETALS */
 .petal {
   position: fixed;
   top: -10px;
@@ -33,128 +128,52 @@ body {
   transform: rotate(45deg);
   opacity: 0.7;
   animation: fall linear forwards;
-  z-index: 2;
 }
 
 @keyframes fall {
-  0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
-
-/* CONTAINER */
-.container {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-/* INPUT BOX */
-#dateContainer {
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(10px);
-  padding: 40px 20px;
-  border-radius: 20px;
-  text-align: center;
-}
-
-#dateInput {
-  width: 80%;
-  padding: 15px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin-top: 15px;
-}
-
-button {
-  margin-top: 15px;
-  padding: 14px 30px;
-  font-size: 18px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #e60039;
-}
-
-/* SCROLLABLE LETTER */
-#letter {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  height: 100vh;
-  overflow-y: auto;
-  background: rgba(255,255,255,0.9);
-  backdrop-filter: blur(5px);
-  padding: 40px;
-  border-radius: 20px;
-  text-align: left;
-  line-height: 1.8;
-  font-size: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-/* POPUP ALERT */
-#popup {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ff4d6d;
-  color: white;
-  padding: 20px 30px;
-  border-radius: 15px;
-  display: none;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 10;
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- VIDEO BACKGROUND -->
-<video id="bgVideo" autoplay muted loop>
-  <source src="rema.mp4" type="video/mp4">
-</video>
-
-<!-- PETALS -->
-<!-- JS will generate petals dynamically -->
-
 <div class="container">
 
-  <!-- INPUT BOX -->
-  <div id="dateContainer">
-    <h1>💖 Mahal, ready for a surprise? 💖</h1>
-    <input type="text" id="dateInput" placeholder="Type our special date">
-    <br>
-    <button onclick="checkDate()">Submit</button>
-  </div>
+<h1 id="title">💖 Mahal, ready for a surprise? 💖</h1>
 
-  <!-- SCROLLABLE LETTER -->
-  <div id="letter"></div>
+<input id="date" placeholder="Type our special date">
+<br>
+<button onclick="checkDate()">Submit</button>
+
+<div id="boom">Happy Monthsary, bibi ko 😚</div>
+
+<div id="question"></div>
+
+<video id="vid" loop>
+<source src="rema.mp4" type="video/mp4">
+</video>
+
+<div id="message"></div>
+
+<div id="ending"></div>
+
+<button id="replay" onclick="location.reload()" style="display:none;">Replay 💖</button>
 
 </div>
 
-<!-- POPUP -->
 <div id="popup"></div>
 
 <script>
-// LONG MESSAGE (PASTE YOUR LOVE LETTER HERE)
-const loveLetter =` ‎My bibi remrem,
+
+const text = `‎My bibi remrem,
 ‎ 
 ‎Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?
 ‎
@@ -168,48 +187,111 @@ const loveLetter =` ‎My bibi remrem,
 ‎
 ‎Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. sorry. dapat a? hehe
 ‎
-‎bibi, ang mahalaga ang importante kaya fighting langg!🤘 
+‎bibi, ang  ang importante kaya fighting langg!🤘 
 ‎ 
 ‎ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)
 ‎
 ‎
 ‎From your Alang (nalang kasi pangit ng pangalan ko)`;
 
-// SOFT PETALS
+// 🌸 PETALS
 setInterval(()=>{
   const petal = document.createElement("div");
   petal.className = "petal";
   petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = (5 + Math.random()*5) + "s";
+  petal.style.animationDuration = (5 + Math.random() * 5) + "s";
   document.body.appendChild(petal);
   setTimeout(()=>petal.remove(),10000);
 },500);
 
-// POPUP ALERT
-function showPopup(msg){
-  const p = document.getElementById("popup");
-  p.innerText = msg;
-  p.style.display = "block";
-  setTimeout(()=>p.style.display="none",2000);
+// popup
+function pop(msg){
+  let p=document.getElementById("popup");
+  p.innerText=msg;
+  p.style.display="block";
+  setTimeout(()=>p.style.display="none",2500);
 }
 
-// CHECK DATE
+// check date
 function checkDate(){
-  const val = document.getElementById("dateInput").value.toLowerCase().trim();
-  if(val==="September 10" || val==="September 10, 2025"){
-    document.getElementById("dateContainer").style.display="none";
-    showLetter();
+  let d=document.getElementById("date").value.toLowerCase();
+
+  if(d==="september 10"||d==="september 10, 2025"){
+
+    document.getElementById("title").style.display="none";
+    document.getElementById("date").style.display="none";
+
+    document.getElementById("boom").style.display="block";
+
+    // automatically show next after 5 seconds
+    setTimeout(showQuestion,5000);
+
   } else {
-    showPopup("Maliii 😚 isipin mo ulit!");
+    pop("Hehe 😏 medyo mali yan, isipin mo ulit!");
   }
 }
 
-// SHOW LETTER
-function showLetter(){
-  const l = document.getElementById("letter");
-  l.style.display="block";
-  l.innerText = loveLetter;
+// question
+function showQuestion(){
+  document.getElementById("boom").style.display="none";
+
+  let q=document.getElementById("question");
+  q.innerHTML=`
+    <p>Do you want to read my message? 💕</p>
+    <button onclick="start()">Yes 💖</button>
+    <button onclick="no()">No 😢</button>
+  `;
+  q.style.display="block";
 }
+
+// no trap
+function no(){
+  pop("No?? sure ka? 😏");
+
+  let q=document.getElementById("question");
+  q.innerHTML=`
+    <p>Last chance 😭</p>
+    <button onclick="start()">Yes 💖</button>
+    <button onclick="start()">Yes 💖</button>
+  `;
+}
+
+// start
+function start(){
+  document.getElementById("question").style.display="none";
+
+  let v=document.getElementById("vid");
+  v.style.display="block";
+  v.play();
+
+  setTimeout(()=>{
+    let m=document.getElementById("message");
+    m.style.display="block";
+    m.innerText=text;
+
+    // automatically show ending after 2 seconds
+    setTimeout(showFinal,2000);
+
+  },2000);
+}
+
+// final romantic reveal
+function showFinal(){
+  const ending = document.getElementById("ending");
+  ending.innerText = "I’m so proud of us, bibi… 🤘💖";
+  ending.style.display = "block";
+
+  ending.style.opacity = 0;
+  ending.style.transform = "translateY(20px)";
+
+  setTimeout(()=>{
+    ending.style.transition = "all 2s ease";
+    ending.style.opacity = 1;
+    ending.style.transform = "translateY(0)";
+    document.getElementById("replay").style.display="inline-block";
+  },100);
+}
+
 </script>
 
 </body>
