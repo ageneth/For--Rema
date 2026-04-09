@@ -7,7 +7,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #ffdde1, #ee9ca7);
+  background: linear-gradient(to right, #ffdde1, #ee9ca7); /* untouched */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,10 +83,10 @@ video {
   margin-top: 20px;
 }
 
-/* LETTER */
+/* LETTER BOX */
 #message {
   display: none;
-  background: linear-gradient(145deg, #ffe0e6, #ffd1da);
+  background: rgba(255, 182, 193, 0.9); /* gentle pink box */
   padding: 30px;
   border-radius: 20px;
   margin-top: 20px;
@@ -95,16 +95,9 @@ video {
   max-height: 80vh;
   overflow-y: auto; 
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  font-size: 22px; /* Larger, professional size */
+  font-size: 22px; /* large & readable */
   border: 2px solid #ff4d6d;
-  animation: glow 3s ease-in-out infinite alternate;
-  color: white;
-}
-
-/* Glow animation */
-@keyframes glow {
-  0% { box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3); }
-  100% { box-shadow: 0 10px 35px rgba(255, 77, 109, 0.7); }
+  color: white; /* text white */
 }
 
 /* FANCY SCROLLBAR */
@@ -112,7 +105,7 @@ video {
   width: 14px;
 }
 #message::-webkit-scrollbar-track {
-  background: #ffd1da;
+  background: #ffc7d0;
   border-radius: 10px;
 }
 #message::-webkit-scrollbar-thumb {
@@ -176,7 +169,6 @@ button.yes:hover, button.no:hover {
 </div>
 
 <script>
-// Full message
 const text = `
 My bibi remrem,<br><br>
 Happy Monthsary, bibi ko 😚. Pakiss nga, sge na kasi. I love youuu 😚.<br>
@@ -219,7 +211,6 @@ function checkDate(){
     document.getElementById("date").style.display="none";
     document.getElementById("submitBtn").style.display="none";
 
-    // Show boom & play sound
     document.getElementById("boom").style.display="block";
     document.getElementById("sound").play();
 
@@ -274,7 +265,7 @@ function start(){
       }
     },50);
 
-    // Manual scroll allowed
+    // Manual scroll allowed anytime
     m.addEventListener('scroll', ()=>{});
   },2000);
 }
