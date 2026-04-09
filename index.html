@@ -13,6 +13,7 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  color: white;
 }
 
 /* MAIN */
@@ -25,7 +26,7 @@ body {
 /* TITLE */
 h1 {
   font-size: 36px;
-  color: #ff4d6d;
+  color: #ffffff;
 }
 
 /* INPUT */
@@ -57,8 +58,7 @@ button:hover {
 /* BOOM */
 #boom {
   display: none;
-  font-size: 42px;
-  color: #ff4d6d;
+  font-size: 48px;
   font-weight: bold;
   animation: fadeIn 1.5s ease;
 }
@@ -95,15 +95,32 @@ video {
   max-height: 80vh;
   overflow-y: auto; 
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  font-size: 18px;
+  font-size: 22px; /* Larger, professional size */
   border: 2px solid #ff4d6d;
   animation: glow 3s ease-in-out infinite alternate;
+  color: white;
 }
 
 /* Glow animation */
 @keyframes glow {
   0% { box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3); }
   100% { box-shadow: 0 10px 35px rgba(255, 77, 109, 0.7); }
+}
+
+/* FANCY SCROLLBAR */
+#message::-webkit-scrollbar {
+  width: 14px;
+}
+#message::-webkit-scrollbar-track {
+  background: #ffd1da;
+  border-radius: 10px;
+}
+#message::-webkit-scrollbar-thumb {
+  background: linear-gradient(#ff4d6d, #ff7993);
+  border-radius: 10px;
+}
+#message::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#ff7993, #ff4d6d);
 }
 
 /* BUTTON COLORS */
@@ -132,15 +149,6 @@ button.yes:hover, button.no:hover {
   0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
   100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }
-
-/* MESSAGE COLORS */
-.highlight { color: #ff4d6d; font-weight: bold; }
-.pink { color: #ff69b4; }
-.purple { color: #9b59b6; }
-.blue { color: #3498db; }
-.green { color: #2ecc71; }
-.orange { color: #e67e22; }
-
 </style>
 </head>
 <body>
@@ -162,32 +170,35 @@ button.yes:hover, button.no:hover {
 
 <div id="message"></div>
 
+<!-- Celebration sound -->
+<audio id="sound" src="pop.mp3"></audio>
+
 </div>
 
 <script>
 // Full message
 const text = `
-<span class="highlight">My bibi remrem,</span><br><br>
-<span class="pink">Happy Monthsary, bibi ko 😚. Pakiss nga, sge na kasi. I love youuu 😚.</span><br>
+My bibi remrem,<br><br>
+Happy Monthsary, bibi ko 😚. Pakiss nga, sge na kasi. I love youuu 😚.<br>
 Iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe.<br>
 Bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko?<br>
 D na kita masyadong naka musta talaga. Bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?<br><br>
 
 Mahal, thank you a. Thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas initindi mo ko. Sorry po. Bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.<br><br>
 
-Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o <span class="orange">HAHAHAHA</span>. Kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din <span class="orange">HAHAHA tsar</span>.<br><br>
+Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o HAHAHAHA. Kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din HAHAHA tsar.<br><br>
 
 Sumakit ba ulo mo habang binabasa mo to mahal? Pagaling ikaw bibi a. Wag na magpuyat po. Pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. Pero bibi, alam ko nmn na miss na miss mo ko dyan at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. Wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. Tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. Kahit saan banda natin tignan, mali talaga pero mali ko din? Sorry pooo, iloveyou po.<br><br>
 
-Mahal, hintayin mo'kong yumaman a. Bibilhan kita ng aso, baka. Bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi <span class="orange">HAHAHAHA</span> ay, joke (bakit ka nmn kasi aayaw kasii? <span class="orange">HAHAHAHA</span>)<br><br>
+Mahal, hintayin mo'kong yumaman a. Bibilhan kita ng aso, baka. Bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke (bakit ka nmn kasi aayaw kasii? HAHAHAHA)<br><br>
 
 Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. Sorry. Dapat a? hehe<br><br>
 
-Bibi, ang importante kaya <span class="green">fighting langg! 🤘</span><br><br>
+Bibi, ang importante kaya fighting langg! 🤘<br><br>
 
-<span class="highlight">ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)</span><br><br>
+ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)<br><br>
 
-<span class="purple">From your Alang (nalang kasi pangit ng pangalan ko)</span>
+From your Alang (nalang kasi pangit ng pangalan ko)
 `;
 
 // 🌸 PETALS
@@ -207,7 +218,11 @@ function checkDate(){
     document.getElementById("title").style.display="none";
     document.getElementById("date").style.display="none";
     document.getElementById("submitBtn").style.display="none";
+
+    // Show boom & play sound
     document.getElementById("boom").style.display="block";
+    document.getElementById("sound").play();
+
     setTimeout(showQuestion,5000);
   } else {
     alert("Oops 😏 mali ang date! Try again.");
@@ -229,7 +244,6 @@ function showQuestion(){
 // no click
 function noClick(){
   alert("No?? 😏 Are you sure?");
-  // both buttons become Yes
   let q=document.getElementById("question");
   q.innerHTML=`
     <p>Last chance 😭</p>
@@ -260,10 +274,10 @@ function start(){
       }
     },50);
 
+    // Manual scroll allowed
     m.addEventListener('scroll', ()=>{});
   },2000);
 }
-
 </script>
 
 </body>
