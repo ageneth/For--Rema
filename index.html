@@ -1,273 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>For Rema ❤️</title>
+<meta charset="UTF-8">
+<title>For My Bibi 💗</title>
 
 <style>
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #ffdde1, #ee9ca7); /* untouched */
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  color: #333;
+}
+
+/* VIDEO BACKGROUND */
+video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* BLUR OVERLAY */
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+  z-index: -1;
+}
+
+/* CENTER BOX */
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  overflow: hidden;
-  color: white;
-}
-
-/* MAIN */
-.container {
   text-align: center;
-  max-width: 700px;
-  width: 90%;
 }
 
-/* TITLE */
-h1 {
-  font-size: 36px;
-  color: #ffffff;
-}
-
-/* INPUT */
+/* INPUT BOX */
 input {
-  width: 80%;
-  padding: 14px;
+  padding: 12px;
   border-radius: 10px;
   border: none;
-  font-size: 16px;
-  text-align: center;
+  margin-top: 10px;
 }
 
 /* BUTTON */
 button {
-  margin-top: 15px;
-  padding: 12px 25px;
+  padding: 12px 20px;
   border: none;
-  background: #ff4d6d;
+  background: #ff4d88;
   color: white;
   border-radius: 10px;
+  margin-top: 10px;
   cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s;
-}
-button:hover {
-  background: #ff7993;
 }
 
-/* BOOM */
-#boom {
+/* MESSAGE BOX */
+.message {
   display: none;
-  font-size: 48px;
-  font-weight: bold;
-  animation: fadeIn 1.5s ease;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
 }
 
-/* FADE */
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(20px);}
-  to {opacity:1; transform: translateY(0);}
-}
-
-/* QUESTION */
-#question {
-  display: none;
-  margin-top: 20px;
-}
-
-/* VIDEO */
-video {
-  display: none;
-  width: 100%;
+.box {
+  background: #ffffff;
   border-radius: 20px;
-  margin-top: 20px;
+  padding: 25px;
+  height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* LETTER BOX */
-#message {
-  display: none;
-  background: rgba(255, 182, 193, 0.9); /* gentle pink box */
-  padding: 30px;
-  border-radius: 20px;
-  margin-top: 20px;
-  text-align: left;
-  line-height: 1.8;
-  max-height: 80vh;
-  overflow-y: auto; 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  font-size: 22px; /* large & readable */
-  border: 2px solid #ff4d6d;
-  color: white; /* text white */
+/* TEXT */
+p {
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-/* FANCY SCROLLBAR */
-#message::-webkit-scrollbar {
-  width: 14px;
-}
-#message::-webkit-scrollbar-track {
-  background: #ffc7d0;
-  border-radius: 10px;
-}
-#message::-webkit-scrollbar-thumb {
-  background: linear-gradient(#ff4d6d, #ff7993);
-  border-radius: 10px;
-}
-#message::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(#ff7993, #ff4d6d);
-}
-
-/* BUTTON COLORS */
-button.yes, button.no {
-  background: #ff4d6d;
-  color: white;
-  margin: 5px;
-}
-button.yes:hover, button.no:hover {
-  background: #ff7993;
-}
-
-/* 🌸 PETALS */
-.petal {
+/* HEARTS */
+.heart, .petal {
   position: fixed;
-  top: -10px;
-  width: 15px;
-  height: 15px;
-  background: radial-gradient(circle, #ffb6c1, #ff4d6d);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(45deg);
-  opacity: 0.7;
-  animation: fall linear forwards;
+  bottom: -10px;
+  animation: floatUp linear infinite;
 }
-@keyframes fall {
-  0% { transform: translateY(0) rotate(45deg); opacity: 0.8; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-800px); opacity: 0; }
 }
 </style>
 </head>
+
 <body>
 
-<div class="container">
-
-<h1 id="title">💖 Mahal, ready for a surprise? 💖</h1>
-
-<input id="date" placeholder="Type our special date">
-<br>
-<button id="submitBtn" onclick="checkDate()">Submit 💖</button>
-
-<div id="boom">Happy Monthsary, bibi ko 😚</div>
-<div id="question"></div>
-
-<video id="vid" loop>
-<source src="rema.mp4" type="video/mp4">
+<!-- VIDEO -->
+<video id="bgVideo" loop muted playsinline>
+  <source src="rema.mp4" type="video/mp4">
 </video>
 
-<div id="message"></div>
+<div class="overlay"></div>
 
-<!-- Celebration sound -->
-<audio id="sound" src="pop.mp3"></audio>
+<!-- LOGIN -->
+<div class="center" id="login">
+  <div>
+    <h2>Enter our monthsary date 😚</h2>
+    <p>(hint: April 10)</p>
+    <input type="text" id="dateInput" placeholder="type here...">
+    <br>
+    <button onclick="checkDate()">Enter 💗</button>
+  </div>
+</div>
 
+<!-- MESSAGE -->
+<div class="message" id="main">
+  <h1 style="text-align:center; color:#ff4d88;">Happy Monthsary, Bibi 💗</h1>
+
+  <div class="box">
+    <p id="typing"></p>
+  </div>
 </div>
 
 <script>
-const text = `
-My bibi remrem,<br><br>
-Happy Monthsary, bibi ko 😚. Pakiss nga, sge na kasi. I love youuu 😚.<br>
-Iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe.<br>
-Bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko?<br>
-D na kita masyadong naka musta talaga. Bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?<br><br>
+const text = `My bibi remrem,
 
-Mahal, thank you a. Thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas initindi mo ko. Sorry po. Bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.<br><br>
+Happy Monthsary, bibi ko 😚 pakiss nga, sige na kasi. I love youuu 😚 iloveyou ngaa. Miss na miss kita hehe. Bibii, hiii haha, anong oras mo na kaya ‘to mababasa? Kamusta ka, bibi ko? Hindi na kita masyadong nakakamusta talaga.
 
-Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o HAHAHAHA. Kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din HAHAHA tsar.<br><br>
+Bibii, mag-ingat ka palagi dyan ha. Kung magpapatakbo ka, 10 lang ha bawal 20 HAHAHA.
 
-Sumakit ba ulo mo habang binabasa mo to mahal? Pagaling ikaw bibi a. Wag na magpuyat po. Pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. Pero bibi, alam ko nmn na miss na miss mo ko dyan at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. Wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. Tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. Kahit saan banda natin tignan, mali talaga pero mali ko din? Sorry pooo, iloveyou po.<br><br>
+Mahal, thank you kasi palagi mo akong iniintindi. Sorry po kung minsan nakakalimutan ko din nararamdaman mo. Valid feelings mo ha.
 
-Mahal, hintayin mo'kong yumaman a. Bibilhan kita ng aso, baka. Bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke (bakit ka nmn kasi aayaw kasii? HAHAHAHA)<br><br>
+7 months na tayo… ang galing natin 😭💗 kahit minsan nagtatampo tayo, nandito pa rin tayo.
 
-Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. Sorry. Dapat a? hehe<br><br>
+Bibi, wag ka na magpuyat ha. Mas importante tulog mo, mahal.
 
-Bibi, ang importante kaya fighting langg! 🤘<br><br>
+Mahal, hintayin mo ‘kong yumaman ha HAHAHA.
 
-ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)<br><br>
+Wag ka magpapakiss sa iba ha 😚 sakin lang yan hehe.
 
-From your Alang (nalang kasi pangit ng pangalan ko)
-`;
+Ang mahalaga ang importante, kaya fighting langgg! 🤘
+So proud of us, bibiiii 💗
 
-// 🌸 PETALS
-setInterval(()=>{
-  const petal = document.createElement("div");
-  petal.className = "petal";
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = (5 + Math.random() * 5) + "s";
-  document.body.appendChild(petal);
-  setTimeout(()=>petal.remove(),10000);
-},500);
+I LOVE YOU SO MUCH, BIBI KO 💗
 
-// check date
-function checkDate(){
-  let d = document.getElementById("date").value.toLowerCase();
-  if(d==="september 10"||d==="september 10, 2025"){
-    document.getElementById("title").style.display="none";
-    document.getElementById("date").style.display="none";
-    document.getElementById("submitBtn").style.display="none";
+—From your Alang 💗`;
 
-    document.getElementById("boom").style.display="block";
-    document.getElementById("sound").play();
+let i = 0;
 
-    setTimeout(showQuestion,5000);
-  } else {
-    alert("Oops 😏 mali ang date! Try again.");
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 30);
   }
 }
 
-// question
-function showQuestion(){
-  document.getElementById("boom").style.display="none";
-  let q=document.getElementById("question");
-  q.innerHTML=`
-    <p>Do you want to read my message? 💕</p>
-    <button class="yes" onclick="start()">Yes 💖</button>
-    <button class="no" onclick="noClick()">No 😢</button>
-  `;
-  q.style.display="block";
+function checkDate() {
+  let input = document.getElementById("dateInput").value.toLowerCase();
+
+  if (input.includes("april 10")) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("main").style.display = "block";
+
+    let vid = document.getElementById("bgVideo");
+    vid.muted = false;
+    vid.play();
+
+    typeWriter();
+    setInterval(createHeart, 300);
+    setInterval(createPetal, 500);
+
+  } else {
+    alert("Mali ang date mo, mahal 😚 try again!");
+  }
 }
 
-// no click
-function noClick(){
-  alert("No?? 😏 Are you sure?");
-  let q=document.getElementById("question");
-  q.innerHTML=`
-    <p>Last chance 😭</p>
-    <button class="yes" onclick="start()">Yes 💖</button>
-    <button class="yes" onclick="start()">Yes 💖</button>
-  `;
+/* HEARTS */
+function createHeart() {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
 }
 
-// start
-function start(){
-  document.getElementById("question").style.display="none";
-  let v=document.getElementById("vid");
-  v.style.display="block";
-  v.play();
+/* PETALS */
+function createPetal() {
+  let petal = document.createElement("div");
+  petal.className = "petal";
+  petal.innerHTML = "🌸";
+  petal.style.left = Math.random() * 100 + "vw";
+  petal.style.fontSize = (Math.random() * 20 + 15) + "px";
+  petal.style.animationDuration = (Math.random() * 4 + 4) + "s";
 
-  setTimeout(()=>{
-    let m=document.getElementById("message");
-    m.style.display="block";
-    m.innerHTML = text;
+  document.body.appendChild(petal);
 
-    // Slow auto-scroll
-    let scrollSpeed = 1;
-    let scrollInterval = setInterval(()=>{
-      if(m.scrollTop + m.clientHeight < m.scrollHeight){
-        m.scrollTop += scrollSpeed;
-      } else {
-        clearInterval(scrollInterval);
-      }
-    },50);
-
-    // Manual scroll allowed anytime
-    m.addEventListener('scroll', ()=>{});
-  },2000);
+  setTimeout(() => petal.remove(), 6000);
 }
 </script>
 
