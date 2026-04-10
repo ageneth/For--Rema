@@ -6,23 +6,21 @@
     <title>Para kay Rema ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,500&family=Quicksand:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
 
         :root {
-            --soft-pink: #fce4ec;
             --deep-rose: #d81b60;
-            --text-gray: #333333;
         }
 
         body, html {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
             overflow: hidden;
-            background-color: #fdfbfb;
-            font-family: 'Quicksand', sans-serif;
+            background-color: #000;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* --- STAGE 1: MINIMALIST ENTRANCE --- */
+        /* --- STAGE 1: ENTRANCE --- */
         #entrance {
             position: fixed;
             top: 0; left: 0;
@@ -32,36 +30,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 2s ease;
+            transition: opacity 1.5s ease;
         }
 
         .entrance-card {
             text-align: center;
+            width: 80%;
             max-width: 320px;
-            padding: 20px;
         }
 
         .entrance-card h1 {
             font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            font-style: italic;
             color: var(--deep-rose);
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 30px;
-            letter-spacing: 1px;
         }
 
         .date-input {
             border: none;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 2px solid #eee;
             padding: 12px;
             width: 100%;
             text-align: center;
             font-size: 1rem;
             outline: none;
-            font-family: 'Quicksand', sans-serif;
-            transition: border-color 0.4s;
-            background: transparent;
+            transition: 0.3s;
         }
 
         .date-input:focus {
@@ -70,23 +63,17 @@
 
         .btn-open {
             margin-top: 40px;
-            background: transparent;
-            border: 1px solid var(--deep-rose);
-            color: var(--deep-rose);
-            padding: 12px 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.5s;
-        }
-
-        .btn-open:hover {
             background: var(--deep-rose);
             color: white;
+            border: none;
+            padding: 12px 50px;
+            border-radius: 30px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(216, 27, 96, 0.2);
         }
 
-        /* --- STAGE 2: THE CINEMATIC REVEAL --- */
+        /* --- STAGE 2: THE VIDEO & FROSTED LETTER --- */
         #video-bg {
             position: fixed;
             top: 50%; left: 50%;
@@ -95,7 +82,7 @@
             transform: translate(-50%, -50%);
             z-index: 1;
             display: none;
-            filter: brightness(0.4) grayscale(20%);
+            filter: brightness(0.7); /* Slightly dimmed to help text readability */
         }
 
         .letter-overlay {
@@ -108,60 +95,63 @@
             width: 100%;
         }
 
-        .formal-letter-block {
-            background: white;
+        .frosted-letter {
+            background: rgba(255, 255, 255, 0.15); /* Semi-transparent */
+            backdrop-filter: blur(15px); /* The "Frosted" look */
+            -webkit-backdrop-filter: blur(15px);
             width: 85%;
-            max-width: 550px;
-            height: 75vh;
-            padding: 50px 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            height: 70vh;
+            padding: 35px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             flex-direction: column;
-            border-radius: 2px;
-            animation: fadeInLetter 3s ease;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: slideUp 1.5s ease;
         }
 
-        @keyframes fadeInLetter {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .scrollable-content {
+        .scroll-area {
             flex-grow: 1;
             overflow-y: auto;
-            padding-right: 15px;
+            padding-right: 10px;
             scrollbar-width: none;
         }
 
-        .scrollable-content::-webkit-scrollbar { display: none; }
+        .scroll-area::-webkit-scrollbar { display: none; }
 
-        .letter-body {
-            font-family: 'Playfair Display', serif;
+        .letter-text {
+            color: white;
             font-size: 1.1rem;
-            line-height: 1.9;
-            color: var(--text-gray);
+            line-height: 1.8;
+            font-weight: 300;
             white-space: pre-wrap;
-            text-align: left;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Makes text pop on video */
         }
 
         .letter-footer {
-            margin-top: 30px;
+            margin-top: 25px;
             text-align: right;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 15px;
             display: none;
         }
 
-        .signature {
+        .sig {
             font-family: 'Dancing Script', cursive;
             font-size: 2rem;
-            color: var(--deep-rose);
+            color: white;
             margin: 0;
         }
 
-        .heart-icon {
-            color: var(--deep-rose);
-            font-size: 1.5rem;
+        .heart {
+            color: #ff4081;
+            font-size: 1.8rem;
             margin-top: 10px;
             cursor: pointer;
             display: inline-block;
@@ -180,9 +170,9 @@
 
 <div id="entrance">
     <div class="entrance-card">
-        <h1>For My Dearest</h1>
+        <h1>Bibi remrem</h1>
         <input type="text" id="dateInput" class="date-input" placeholder="Our special date...">
-        <button class="btn-open" onclick="unlock()">Enter</button>
+        <button class="btn-open" onclick="unlock()">Open My Heart</button>
     </div>
 </div>
 
@@ -191,12 +181,12 @@
 </video>
 
 <div class="letter-overlay" id="letterContainer">
-    <div class="formal-letter-block">
-        <div class="scrollable-content" id="scrollBox">
-            <div class="letter-body" id="textDestination"></div>
+    <div class="frosted-letter">
+        <div class="scroll-area" id="scrollBox">
+            <div class="letter-text" id="textTarget"></div>
             <div class="letter-footer" id="footer">
-                <p class="signature">Always yours, Alang</p>
-                <div class="heart-icon" onclick="location.reload()">❤</div>
+                <p class="sig">Always yours, Alang</p>
+                <div class="heart" onclick="location.reload()">❤</div>
             </div>
         </div>
     </div>
@@ -205,7 +195,7 @@
 <script>
     const originalMessage = `My bibi remrem,
  
-Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?
+Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magmomotor ka dapat 10 lang d aabot ng 20 haha oa yarn?
 
 Mahal, thank you a. thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas initindi mo ko. sorry po. bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.
 
@@ -213,19 +203,21 @@ Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o HAHAHAH
 
 Sumakit ba ulo mo habang binabasa mo to mahal?, pagaling ikaw bibi a. wag na magpuyat po. pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. pero bibi, alam ko nmn na miss na miss mo ko dyan at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. kahit saan banda natin tignan, mali talaga pero mali ko din? sorry pooo, iloveyou po.
 
-Mahal, hintayin mo'kong yumaman a. bibilhan kita ng aso, baka. bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke( bakit ka nmn kasi aayaw kasii? HAHAHAHA)
+Mahal, hintayin mo'kong yumaman a. bibilhan kita ng aso at baka.... bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke( bakit ka nmn kasi aayaw kasii😾? HAHAHAHA)
 
-Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. sorry. dapat a? hehe
+Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang po a. sorry. dapat a? hehe. MAHAL NA MAHAL KITA O😭
 
-bibi, ang mahalaga ang importante kaya fighting langg!🤘 
+bibi, ang mahalaga ang importante kaya fighting langg!🤘 SO PROUD OF US!🤝🫂
  
-ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)`;
+ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)
+
+`;
 
     function unlock() {
         const input = document.getElementById('dateInput').value.toLowerCase();
         if(input.includes("september 10") || input.includes("sept 10")) {
             
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#d81b60', '#fce4ec'] });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#d81b60', '#ffffff'] });
 
             document.getElementById('entrance').style.opacity = "0";
             
@@ -239,15 +231,15 @@ ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)`;
                 vid.play();
                 
                 typeMessage();
-            }, 1500);
+            }, 1000);
         } else {
-            alert("Bibi, try again. 😚");
+            alert("Maling date, bibi! Yung naging tayo a? Hehe 😚");
         }
     }
 
     let i = 0;
     function typeMessage() {
-        const dest = document.getElementById('textDestination');
+        const dest = document.getElementById('textTarget');
         const box = document.getElementById('scrollBox');
         
         if (i < originalMessage.length) {
