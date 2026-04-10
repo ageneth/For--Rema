@@ -6,159 +6,135 @@
     <title>Para kay Rema ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;600&family=Quicksand:wght@400;500&display=swap');
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
             overflow: hidden;
             background-color: #000;
             font-family: 'Quicksand', sans-serif;
-            color: white;
         }
 
-        /* Initial Pink Background */
-        #bg-overlay {
+        /* Initial Entry Screen */
+        #entry-screen {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-            z-index: 1;
-            transition: opacity 2s ease;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 1.5s ease;
         }
 
-        /* Video as a cinematic background */
         #vid {
             position: fixed;
             top: 50%; left: 50%;
             min-width: 100%; min-height: 100%;
             width: auto; height: auto;
             transform: translate(-50%, -50%);
-            z-index: 0;
+            z-index: 1;
             display: none;
-            filter: brightness(0.6) blur(2px);
+            filter: brightness(0.4);
         }
 
-        .container {
+        /* The Formal Block */
+        .message-container {
             position: relative;
             z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
+            display: none;
+            width: 85%;
+            max-width: 600px;
+            margin: 20px auto;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.9); /* Pure block look */
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            animation: slideUp 2s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
             color: #ff4d6d;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .formal-block-text {
+            font-family: 'Playfair Display', serif;
+            color: #333;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            text-align: justify;
         }
 
         input {
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            padding: 15px;
-            border-radius: 50px;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid white;
             width: 250px;
             text-align: center;
+            margin-bottom: 15px;
             font-size: 1rem;
-            outline: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .btn-start {
-            margin-top: 20px;
+        .btn-unlock {
             background: #ff4d6d;
             color: white;
             border: none;
-            padding: 12px 40px;
-            border-radius: 50px;
+            padding: 10px 40px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            letter-spacing: 1px;
             transition: 0.3s;
         }
 
-        /* Message Display */
-        #message-wrap {
-            display: none;
-            width: 90%;
-            max-width: 600px;
-            max-height: 70vh;
-            overflow-y: auto;
-            text-align: left;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            padding-right: 10px;
-            scrollbar-width: none; /* Firefox */
-        }
+        /* Custom Scrollbar for the block */
+        .message-container::-webkit-scrollbar { width: 5px; }
+        .message-container::-webkit-scrollbar-thumb { background: #ff4d6d; border-radius: 10px; }
 
-        #message-wrap::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-
-        .typing-text {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            font-weight: 400;
-        }
-
-        /* Final Heart Overlay */
-        #final-touch {
-            display: none;
+        #signature {
             margin-top: 30px;
-            animation: fadeIn 3s ease;
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #ff4d6d;
+            display: none;
         }
 
-        .heart-btn {
-            font-size: 3rem;
-            cursor: pointer;
-            filter: drop-shadow(0 0 10px #ff4d6d);
-            animation: heartbeat 1.5s infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
 
-<div id="bg-overlay"></div>
+<div id="entry-screen">
+    <h1 style="color: white; font-size: 2rem;">For Rema ❤️</h1>
+    <input type="text" id="dateInput" placeholder="Our Special Date">
+    <button class="btn-unlock" onclick="unlock()">Unlock</button>
+</div>
 
-<video id="vid" loop playsinline muted>
+<video id="vid" loop playsinline>
     <source src="rema.mp4" type="video/mp4">
 </video>
 
-<div class="container">
-    <div id="step-1">
-        <h1>Para sa mahal ko...</h1>
-        <input type="text" id="date" placeholder="Anong date tayo nag simula?">
-        <br>
-        <button class="btn-start" onclick="checkDate()">Enter ❤️</button>
-    </div>
-
-    <div id="message-wrap">
-        <div class="typing-text" id="text-target"></div>
-        <div id="final-touch">
-            <p style="font-family: 'Dancing Script'; font-size: 2rem; color: #ff8fa3;">Mahal na mahal kita, palagi. ❤️</p>
-            <div class="heart-btn" onclick="location.reload()">❤️</div>
-        </div>
-    </div>
+<div class="message-container" id="mainBlock">
+    <div class="formal-block-text" id="typingTarget"></div>
+    <div id="signature">From your Alang</div>
 </div>
 
 <script>
-    const text = `My bibi remrem,
+    // YOUR ORIGINAL MESSAGE - EXACTLY AS WRITTEN
+    const myWords = `My bibi remrem,
  
 Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?
 
@@ -174,51 +150,51 @@ Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang
 
 bibi, ang mahalaga ang importante kaya fighting langg!🤘 
  
-ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)
+ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)`;
 
-- Alang`;
+    function unlock() {
+        const input = document.getElementById('dateInput').value.toLowerCase();
+        
+        if(input.includes("september 10") || input.includes("sept 10")) {
+            // 1. Confetti celebration
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 
-    function checkDate() {
-        let d = document.getElementById("date").value.toLowerCase();
-        if(d.includes("september 10") || d.includes("sept 10")) {
-            startCelebration();
+            // 2. Hide entry screen
+            document.getElementById('entry-screen').style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById('entry-screen').style.display = "none";
+            }, 1500);
+
+            // 3. Play Video with sound
+            const vid = document.getElementById('vid');
+            vid.style.display = "block";
+            vid.muted = false; // Works because user clicked 'Unlock'
+            vid.play();
+
+            // 4. Show the Formal Block and start typing
+            setTimeout(() => {
+                document.getElementById('mainBlock').style.display = "block";
+                startTyping();
+            }, 2000);
+
         } else {
-            alert("Bibi naman e, try again! 😚");
+            alert("Wrong date, bibi! 😚");
         }
     }
 
-    function startCelebration() {
-        // Confetti
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-
-        // Transitions
-        document.getElementById("step-1").style.display = "none";
-        document.getElementById("bg-overlay").style.opacity = "0";
-        
-        const vid = document.getElementById("vid");
-        vid.style.display = "block";
-        vid.unmuted = false; // Try to play with sound if browser allows
-        vid.play();
-
-        setTimeout(() => {
-            document.getElementById("message-wrap").style.display = "block";
-            typeWriter();
-        }, 2000);
-    }
-
     let i = 0;
-    function typeWriter() {
-        const target = document.getElementById("text-target");
-        const wrap = document.getElementById("message-wrap");
-        
-        if (i < text.length) {
-            target.innerHTML += text.charAt(i);
+    function startTyping() {
+        const target = document.getElementById('typingTarget');
+        const container = document.getElementById('mainBlock');
+
+        if (i < myWords.length) {
+            target.innerHTML += myWords.charAt(i);
             i++;
-            wrap.scrollTop = wrap.scrollHeight;
-            setTimeout(typeWriter, 50);
+            container.scrollTop = container.scrollHeight; // Auto-scrolls the block
+            setTimeout(startTyping, 40); 
         } else {
-            document.getElementById("final-touch").style.display = "block";
-            wrap.scrollTop = wrap.scrollHeight;
+            document.getElementById('signature').style.display = "block";
+            container.scrollTop = container.scrollHeight;
         }
     }
 </script>
