@@ -6,20 +6,19 @@
     <title>For My Bibi Remrem ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,500&family=Quicksand:wght@300;400&display=swap');
+        /* Using Inter for a very clean, professional, and modern feel */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,500&display=swap');
 
         :root {
-            --soft-pink: #fce4ec;
             --deep-rose: #d81b60;
-            --text-gray: #333333;
         }
 
         body, html {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
             overflow: hidden;
-            background-color: #fdfbfb;
-            font-family: 'Quicksand', sans-serif;
+            background-color: #000;
+            font-family: 'Inter', sans-serif;
         }
 
         /* --- STAGE 1: MINIMALIST ENTRANCE --- */
@@ -59,7 +58,7 @@
             text-align: center;
             font-size: 1rem;
             outline: none;
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Inter', sans-serif;
             transition: border-color 0.4s;
             background: transparent;
         }
@@ -79,6 +78,7 @@
             font-size: 0.8rem;
             cursor: pointer;
             transition: 0.5s;
+            border-radius: 50px;
         }
 
         .btn-open:hover {
@@ -95,7 +95,7 @@
             transform: translate(-50%, -50%);
             z-index: 1;
             display: none;
-            filter: brightness(0.4) grayscale(20%);
+            filter: brightness(0.5); /* Slightly darker so text is easier to read */
         }
 
         .letter-overlay {
@@ -108,22 +108,21 @@
             width: 100%;
         }
 
-        .formal-letter-block {
-            background: white;
+        /* Completely transparent block */
+        .transparent-letter-block {
+            background: transparent;
             width: 85%;
-            max-width: 550px;
-            height: 75vh;
-            padding: 50px 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            height: 80vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            border-radius: 2px;
             animation: fadeInLetter 3s ease;
         }
 
         @keyframes fadeInLetter {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .scrollable-content {
@@ -136,32 +135,35 @@
         .scrollable-content::-webkit-scrollbar { display: none; }
 
         .letter-body {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            line-height: 1.9;
-            color: var(--text-gray);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #ffffff;
             white-space: pre-wrap;
             text-align: left;
+            /* Text shadow ensures readability on moving backgrounds */
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8), 0px 0px 5px rgba(0,0,0,0.5);
         }
 
         .letter-footer {
             margin-top: 30px;
             text-align: right;
-            border-top: 1px solid #f0f0f0;
             padding-top: 20px;
             display: none;
         }
 
         .signature {
             font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: var(--deep-rose);
+            font-size: 2.2rem;
+            color: #ffffff;
             margin: 0;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
 
         .heart-icon {
-            color: var(--deep-rose);
-            font-size: 1.5rem;
+            color: #ff4d6d;
+            font-size: 1.8rem;
             margin-top: 10px;
             cursor: pointer;
             display: inline-block;
@@ -191,10 +193,10 @@
 </video>
 
 <div class="letter-overlay" id="letterContainer">
-    <div class="formal-letter-block">
+    <div class="transparent-letter-block">
         <div class="scrollable-content" id="scrollBox">
             <div class="letter-body" id="textDestination"></div>
-            <div class="letter-footer" id="footer">
+            <div id="footer" class="letter-footer">
                 <p class="signature">Always yours, Alang</p>
                 <div class="heart-icon" onclick="location.reload()">❤</div>
             </div>
@@ -205,13 +207,13 @@
 <script>
     const originalMessage = `My bibi remrem,
  
-Happy Monthsary, bibi ko😚. Pakiss nga, sge na kasi. Iloveyouuu😚, iloveyou ngaa. ayaw mo na talaga sa'kin☹️. Imissyouuuu hehe, miss na miss kita palagi. Bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. Bibii, mag ingat ikaw palagi dyan po a. Palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magmo-motor ka dapat 10 lang d aabot ng 20 haha, oa yarn?
+Happy Monthsary, bibi ko😚. Pakiss nga, sge na kasi. Iloveyouuu😚, iloveyou ngaa. Ayaw mo na talaga sa'kin☹️. Imissyouuuu hehe, miss na miss kita palagi. Bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. Bibii, mag ingat ikaw palagi dyan po a. Palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magmo-motor ka dapat 10 lang d aabot ng 20 haha, oa yarn?
 
 Mahal, thank you a. Thank you po kasi palagi mo iniintindi tong pagiging ano ko sa sarili po, alam kong minsan d mo nalang inaano naramdaman mo kasi mas initindi mo ko. Sorry po. Bibi, valid feelings mo a, kaya sabihin mo sa'kin kung nasasaktan ikaw a.
 
 Nalagpasan natin yung 6 months haha 7 months na tayo, ang galing natin o HAHAHAHA. Kahit minsan alam kong nagtatampo na din ikaw sa'kin, ako din HAHAHA tsar. 
 
-Sumakit ba ulo mo habang binabasa mo'to mahal?, pagaling ikaw bibi a wag na magpuyat po. Pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. Pero bibi, alam ko nmn na miss na miss mo ko dyan haha at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. 'Wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. Tsaka sabik na sabik din ikaw na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. kahit saan banda natin tignan, mali talaga pero mali ko din? sorry pooo, iloveyou po.
+Sumakit ba ulo mo habang binabasa mo'to mahal?, pagaling ikaw bibi a. Wag na magpuyat po. Pero kasalanan ko din minsan kasi ang tagal kong matulog tas tong asawa ko nmn tinatry na hintayin ako, ang tigas din e. Pero bibi, alam ko nmn na miss na miss mo ko dyan haha at gusto mo ko makachat pa pero sana mas uunahin mo health mo a. 'Wag mo sana isipin na d kita gusto kausap po, ayaw ko lang na nagpupuyat ikaw katulad ko. Tsaka sabik na sabik din ako na makausap ka, pero mas importante tulog mo kesa magpuyat talaga mahal. kahit saan banda natin tignan, mali talaga pero mali ko din? sorry pooo, iloveyou po.
 
 Mahal, hintayin mo'kong yumaman a. Bibilhan kita ng aso, baka.... bilhin ko din pagkatao mo para kahit umayaw ka pag inaya kita e d ka maka hindi HAHAHAHA ay, joke( bakit ka nmn kasi aayaw kasii?😾 HAHAHAHA)
 
@@ -225,7 +227,7 @@ ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)`;
         const input = document.getElementById('dateInput').value.toLowerCase();
         if(input.includes("september 10") || input.includes("sept 10")) {
             
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#d81b60', '#fce4ec'] });
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 }, colors: ['#ffffff', '#ff4d6d'] });
 
             document.getElementById('entrance').style.opacity = "0";
             
@@ -241,7 +243,7 @@ ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)`;
                 typeMessage();
             }, 1500);
         } else {
-            alert("Akala mo ngayon no? HAHAHA Unang araw kasi na naging tayo po(naalala  mo pa ba?😚");
+            alert("Akala mo ngayon no? HAHAHA Unang araw kasi na naging tayo po (naalala mo pa ba? 😚)");
         }
     }
 
