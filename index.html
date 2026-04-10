@@ -3,206 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Rema ❤️</title>
+    <title>For My Queen ❤️</title>
     
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500&display=swap');
+
         :root {
-            --primary-pink: #ff4d6d;
-            --soft-pink: #ffdde1;
-            --deep-rose: #ee9ca7;
+            --primary-love: #d63384;
+            --bg-warm: #fff5f7;
+            --accent-gold: #c5a059;
         }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--soft-pink), var(--deep-rose));
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-warm);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
-            color: #333;
+            color: #4a4a4a;
         }
 
-        /* Floating Hearts Background */
-        .heart-bg {
+        /* Soft Floating Petals */
+        .petal {
             position: absolute;
-            color: rgba(255, 77, 109, 0.2);
-            font-size: 20px;
+            background-color: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.3;
             pointer-events: none;
-            animation: floatUp 6s linear infinite;
+            animation: fall 7s linear infinite;
             z-index: 1;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Main Container */
-        .container {
+        /* The Letter Container */
+        .letter-card {
             position: relative;
-            text-align: center;
-            max-width: 500px;
-            width: 85%;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: #ffffff;
+            width: 90%;
+            max-width: 550px;
+            padding: 40px;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05), inset 0 0 100px rgba(214, 51, 132, 0.03);
             z-index: 10;
-            animation: floatCard 4s ease-in-out infinite;
+            text-align: center;
+            border: 1px solid #f0f0f0;
         }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        /* Decorative Border */
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 10px; bottom: 10px; left: 10px; right: 10px;
+            border: 1px solid #fce4ec;
+            pointer-events: none;
         }
 
         h1 {
-            font-size: 1.8rem;
-            color: var(--primary-pink);
-            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--primary-love);
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin: 20px 0;
         }
 
         input {
-            width: 85%;
-            padding: 15px;
-            border-radius: 15px;
-            border: 2px solid transparent;
-            font-size: 16px;
+            border: none;
+            border-bottom: 2px solid #f8bbd0;
+            padding: 10px;
+            font-size: 1.1rem;
             text-align: center;
             outline: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 80%;
+            background: transparent;
             transition: 0.3s;
         }
 
         input:focus {
-            border-color: var(--primary-pink);
+            border-bottom-color: var(--primary-love);
         }
 
-        button {
-            margin-top: 20px;
-            padding: 12px 25px;
-            border: none;
-            background: var(--primary-pink);
+        .btn-love {
+            background: var(--primary-love);
             color: white;
-            border-radius: 50px;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
+            margin-top: 20px;
             transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.2);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .btn-love:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.3);
         }
 
-        /* Animated Title */
-        #boom {
-            display: none;
-            font-size: 2.2rem;
-            background: linear-gradient(to right, #ff4d6d, #ff8fa3, #ff4d6d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: shine 2s linear infinite;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-
-        video {
+        /* Video Styling */
+        #vid {
             display: none;
             width: 100%;
-            border-radius: 15px;
-            margin-top: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            margin-top: 20px;
+            filter: sepia(20%);
         }
 
-        #message {
+        /* The Message Content */
+        #message-box {
             display: none;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 15px;
             text-align: left;
-            line-height: 1.6;
-            font-size: 1rem;
-            max-height: 250px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            max-height: 350px;
             overflow-y: auto;
-            white-space: pre-wrap; /* Keeps your spacing */
+            margin-top: 20px;
+            padding: 10px;
+            white-space: pre-wrap;
+            color: #555;
+            border-top: 1px solid #eee;
         }
 
-        #ending {
-            margin-top: 15px;
-            font-weight: bold;
-            color: var(--primary-pink);
-            font-size: 1.1rem;
-            display: none;
+        #message-box::-webkit-scrollbar {
+            width: 5px;
+        }
+        #message-box::-webkit-scrollbar-thumb {
+            background: #f8bbd0;
+            border-radius: 10px;
         }
 
-        /* Popup Notification */
-        #popup {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            color: var(--primary-pink);
-            font-weight: bold;
-            z-index: 100;
+        .hidden { display: none; }
+
+        .date-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-love);
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-<div id="popup"></div>
-
-<div class="container">
-    <div id="loginArea">
-        <h1 id="title">💖 Mahal, ready for a surprise? 💖</h1>
-        <input type="text" id="dateInput" placeholder="Type our special date 😚">
-        <br>
-        <button onclick="checkDate()">Unlock my heart ❤️</button>
+<div class="letter-card" id="mainCard">
+    <div id="step-login">
+        <h1>For My Bibi...</h1>
+        <p>Before you enter, tell me our special date.</p>
+        <div class="input-group">
+            <input type="text" id="dateInput" placeholder="September 10">
+        </div>
+        <button class="btn-love" onclick="checkDate()">Open Letter</button>
     </div>
 
-    <div id="boom">Happy Monthsary, bibi ko 😚</div>
-    <button id="nextBtn" onclick="showQuestion()" style="display:none;">Next 💕</button>
-
-    <div id="question" style="display:none;">
-        <p style="font-size: 1.2rem;">Do you want to read my message? 💕</p>
-        <button onclick="startRevelation()">Yes 💖</button>
-        <button onclick="noTrap()">No 😢</button>
+    <div id="step-transition" class="hidden">
+        <h1 class="date-text">Happy 7th Monthsary, Rema ❤️</h1>
+        <p>I prepared a little something for you...</p>
+        <button class="btn-love" onclick="startLetter()">View My Message</button>
     </div>
 
-    <video id="vid" loop playsinline>
-        <source src="rema.mp4" type="video/mp4">
-    </video>
-
-    <div id="message"></div>
-    <div id="ending"></div>
-
-    <button id="replay" onclick="location.reload()" style="display:none;">Replay 💖</button>
+    <div id="step-message" class="hidden">
+        <video id="vid" loop playsinline>
+            <source src="rema.mp4" type="video/mp4">
+        </video>
+        <div id="message-box"></div>
+        <p id="signature" style="text-align: right; font-family: 'Dancing Script', cursive; font-size: 1.5rem; display:none;">
+            From your Alang
+        </p>
+        <button id="replayBtn" class="btn-love hidden" onclick="location.reload()">Read Again 💖</button>
+    </div>
 </div>
 
 <script>
-    const myMessage = `My bibi remrem,
+    const fullMessage = `My bibi remrem,
  
 Happy Monthsary, bibi ko😚. pakiss nga, sge na kasi. Iloveyouuu😚. iloveyou ngaa, ayaw mo na talaga sa'kin. Imissyouuuu hehe. bibii, hiii haha anong oras mo na kaya to mababasa. Kamusta ikaw bibi ko? d na kita masyadong naka musta talaga. bibii, mag ingat ikaw palagi dyan po a, palagi ko yan sinasabi sayo pero sana seryosohin mo, kung magpatakbo ka dapat 10 lang d aabot ng 20 haha oa yarn?
 
@@ -218,95 +201,61 @@ Mahalllll, wag ikaw mag pakiss sa kung kanino a sa'kin lang dapat yan, akin lang
 
 bibi, ang mahalaga ang importante kaya fighting langg!🤘 
  
-ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)
+ILOVEYOU, BIBIII KO (MAHAL, ASAWA, REMREM, BOI, TEH, BRO)`;
 
-From your Alang`;
-
-    // 1. Background Hearts Logic
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-bg');
-        heart.innerHTML = '❤️';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 2 + 4 + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
+    // Floating Petals
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.width = Math.random() * 15 + 10 + 'px';
+        petal.style.height = petal.style.width;
+        petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 7000);
     }
-    setInterval(createHeart, 400);
+    setInterval(createPetal, 600);
 
-    function pop(text) {
-        const p = document.getElementById("popup");
-        p.innerText = text;
-        p.style.display = "block";
-        setTimeout(() => p.style.display = "none", 2500);
-    }
-
-    // 2. Date Check with Celebration
     function checkDate() {
-        let val = document.getElementById("dateInput").value.toLowerCase().trim();
-        if (val.includes("september 10") || val.includes("sept 10")) {
-            document.getElementById("loginArea").style.display = "none";
-            document.getElementById("boom").style.display = "block";
-            document.getElementById("nextBtn").style.display = "inline-block";
-
-            // Confetti Blast
+        const input = document.getElementById('dateInput').value.toLowerCase();
+        if(input.includes("september 10") || input.includes("sept 10")) {
             confetti({
-                particleCount: 150,
+                particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#ff4d6d', '#ffffff', '#ff8fa3']
+                colors: ['#d63384', '#ffb7c5']
             });
+            document.getElementById('step-login').classList.add('hidden');
+            document.getElementById('step-transition').classList.remove('hidden');
         } else {
-            pop("Wrong date bibi! 😚 try again!");
+            alert("Wrong date, bibi! 😚");
         }
     }
 
-    // 3. Question Trap
-    function showQuestion() {
-        document.getElementById("boom").style.display = "none";
-        document.getElementById("nextBtn").style.display = "none";
-        document.getElementById("question").style.display = "block";
-    }
-
-    function noTrap() {
-        pop("No? Sure ka ba? 😏");
-        document.getElementById("question").innerHTML = `
-            <p style="font-size: 1.2rem;">Last chance, pipili ka pa ba ng No? 😭</p>
-            <button onclick="startRevelation()">Yes 💖</button>
-            <button onclick="startRevelation()">Yes (Dapat lang) 💖</button>
-        `;
-    }
-
-    // 4. Reveal Video & Typewriter Message
-    function startRevelation() {
-        document.getElementById("question").style.display = "none";
+    function startLetter() {
+        document.getElementById('step-transition').classList.add('hidden');
+        document.getElementById('step-message').classList.remove('hidden');
         
-        const vid = document.getElementById("vid");
+        const vid = document.getElementById('vid');
         vid.style.display = "block";
         vid.play();
 
-        const msgDiv = document.getElementById("message");
-        msgDiv.style.display = "block";
-
+        const msgBox = document.getElementById('message-box');
+        msgBox.style.display = "block";
+        
         let i = 0;
         function typeWriter() {
-            if (i < myMessage.length) {
-                msgDiv.innerHTML += myMessage.charAt(i);
+            if (i < fullMessage.length) {
+                msgBox.innerHTML += fullMessage.charAt(i);
                 i++;
-                msgDiv.scrollTop = msgDiv.scrollHeight; // Auto-scroll
-                setTimeout(typeWriter, 40); // Speed of typing
+                msgBox.scrollTop = msgBox.scrollHeight;
+                setTimeout(typeWriter, 45); 
             } else {
-                showFinal();
+                document.getElementById('signature').style.display = "block";
+                document.getElementById('replayBtn').classList.remove('hidden');
             }
         }
         typeWriter();
-    }
-
-    function showFinal() {
-        const e = document.getElementById("ending");
-        e.innerText = "So proud of us, bibi 🤘";
-        e.style.display = "block";
-        document.getElementById("replay").style.display = "inline-block";
     }
 </script>
 
